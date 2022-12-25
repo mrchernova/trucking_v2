@@ -1,6 +1,5 @@
 package by.project.trucking_v2.controller;
 
-import by.project.trucking_v2.config.TestConfig;
 import by.project.trucking_v2.model.Role;
 import by.project.trucking_v2.model.User;
 import by.project.trucking_v2.repository.UserRepository;
@@ -13,11 +12,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.RequestBuilder;
 
 import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
