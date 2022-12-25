@@ -1,5 +1,4 @@
-![](src/main/resources/db_trucking_20221013.png)
-
+![](src/main/resources/trucking_db_24-12-2022.png)
 
 Declare Profiles in XML
 https://www.baeldung.com/spring-profiles

@@ -16,6 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `carriers`
+--
+
+DROP TABLE IF EXISTS `carriers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `carriers` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `contact` varchar(255) DEFAULT NULL,
+  `user_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id_idx` (`user_id`),
+  CONSTRAINT `crr_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `carriers`
+--
+
+LOCK TABLES `carriers` WRITE;
+/*!40000 ALTER TABLE `carriers` DISABLE KEYS */;
+/*!40000 ALTER TABLE `carriers` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `clients`
 --
 
@@ -39,7 +66,6 @@ CREATE TABLE `clients` (
 
 LOCK TABLES `clients` WRITE;
 /*!40000 ALTER TABLE `clients` DISABLE KEYS */;
-INSERT INTO `clients` VALUES (1,'Евроопт','+375 (29) 111-11-11',1),(2,'Ами Мебель','+375 (29) 222-22-22',3),(3,'IKEA','+375 (29) 333-33-33',2);
 /*!40000 ALTER TABLE `clients` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -55,7 +81,10 @@ CREATE TABLE `drivers` (
   `name` varchar(45) NOT NULL,
   `surname` varchar(45) NOT NULL,
   `status_id` int NOT NULL,
-  PRIMARY KEY (`id`)
+  `carriers_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_drivers_carriers1_idx` (`carriers_id`),
+  CONSTRAINT `fk_drivers_carriers1` FOREIGN KEY (`carriers_id`) REFERENCES `carriers` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -65,7 +94,6 @@ CREATE TABLE `drivers` (
 
 LOCK TABLES `drivers` WRITE;
 /*!40000 ALTER TABLE `drivers` DISABLE KEYS */;
-INSERT INTO `drivers` VALUES (1,'Иван','Иванов',1),(2,'Петр','Петров',1),(3,'Антон','Антонов',1);
 /*!40000 ALTER TABLE `drivers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -97,7 +125,6 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (1,'Продукты',300.0,'Минск','Витебск',600.00,1,0),(2,'Шкаф',150.0,'Гомель','Гродно',250.00,2,0),(3,'Диван',350.0,'Гомель','Минск',200.00,3,0),(4,'Стол',16.0,'Брест','Могилев',160.00,2,2);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -113,16 +140,16 @@ CREATE TABLE `orders_base` (
   `order_id` int NOT NULL,
   `driver_id` int NOT NULL,
   `transport_id` int NOT NULL,
-  `organization_id` int NOT NULL,
+  `carrier_id` int NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `order_id_idx` (`order_id`),
   KEY `driver_id_idx` (`driver_id`),
   KEY `transport_id_idx` (`transport_id`),
-  KEY `organization_id_idx` (`organization_id`),
+  KEY `carrier_id_idx` (`carrier_id`),
+  CONSTRAINT `bo_carrier_id` FOREIGN KEY (`carrier_id`) REFERENCES `carriers` (`id`),
   CONSTRAINT `bo_driver_id` FOREIGN KEY (`driver_id`) REFERENCES `drivers` (`id`),
   CONSTRAINT `bo_order_id` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
-  CONSTRAINT `bo_organization_id` FOREIGN KEY (`organization_id`) REFERENCES `organizations` (`id`),
   CONSTRAINT `bo_transport_id` FOREIGN KEY (`transport_id`) REFERENCES `transport` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -134,40 +161,6 @@ CREATE TABLE `orders_base` (
 LOCK TABLES `orders_base` WRITE;
 /*!40000 ALTER TABLE `orders_base` DISABLE KEYS */;
 /*!40000 ALTER TABLE `orders_base` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `organizations`
---
-
-DROP TABLE IF EXISTS `organizations`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `organizations` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) NOT NULL,
-  `contact` varchar(255) DEFAULT NULL,
-  `driver_id` int DEFAULT NULL,
-  `transport_id` int DEFAULT NULL,
-  `user_id` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `user_id_idx` (`user_id`),
-  KEY `org_driver_id_idx` (`driver_id`),
-  KEY `org_transport_id_idx` (`transport_id`),
-  CONSTRAINT `org_driver_id` FOREIGN KEY (`driver_id`) REFERENCES `drivers` (`id`),
-  CONSTRAINT `org_transport_id` FOREIGN KEY (`transport_id`) REFERENCES `transport` (`id`),
-  CONSTRAINT `org_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `organizations`
---
-
-LOCK TABLES `organizations` WRITE;
-/*!40000 ALTER TABLE `organizations` DISABLE KEYS */;
-INSERT INTO `organizations` VALUES (1,'ИП Перевозки',NULL,NULL,NULL,3),(2,'ООО Доставка',NULL,NULL,NULL,3);
-/*!40000 ALTER TABLE `organizations` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -184,8 +177,11 @@ CREATE TABLE `transport` (
   `carrying_capacity` decimal(5,0) NOT NULL,
   `number_plate` varchar(9) NOT NULL,
   `status_id` int NOT NULL,
+  `carriers_id` int NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `number_plate_UNIQUE` (`number_plate`)
+  UNIQUE KEY `number_plate_UNIQUE` (`number_plate`),
+  KEY `fk_transport_carriers1_idx` (`carriers_id`),
+  CONSTRAINT `fk_transport_carriers1` FOREIGN KEY (`carriers_id`) REFERENCES `carriers` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -195,7 +191,6 @@ CREATE TABLE `transport` (
 
 LOCK TABLES `transport` WRITE;
 /*!40000 ALTER TABLE `transport` DISABLE KEYS */;
-INSERT INTO `transport` VALUES (1,'DAF','truck',6,'1234 AE-7',1),(2,'Volvo','truck',5,'5468 EE-1',1),(3,'Mersedes','van',4,'5367 II-2',1),(4,'MAN','truck',6,'2334 RT-3',1),(5,'Renault','truck',5,'8654 OO-4',1),(6,'Scania','truck',5,'3562 RE-5',1),(7,'Volkswagen','van',4,'4353 HH-6',1);
 /*!40000 ALTER TABLE `transport` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -210,9 +205,10 @@ CREATE TABLE `users` (
   `id` int NOT NULL AUTO_INCREMENT,
   `login` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
-  `role_id` int NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
+  `role` int NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `login_UNIQUE` (`login`)
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb3 COMMENT='роли хранятся в enum';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -221,7 +217,6 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'evroopt','1111',2),(2,'ikea','1111',2),(3,'ami','1111',2),(4,'ip_perevozki','1111',3),(5,'ooo_dostavka','1111',3),(6,'administrator','1234',1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -234,4 +229,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-10-13 21:45:51
+-- Dump completed on 2022-12-24 17:27:24
