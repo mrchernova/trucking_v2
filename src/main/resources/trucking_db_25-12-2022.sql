@@ -26,10 +26,10 @@ CREATE TABLE `carriers` (
   `id` int NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
   `contact` varchar(255) DEFAULT NULL,
-  `user_id` int NOT NULL,
+  `users_id` int NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `user_id_idx` (`user_id`),
-  CONSTRAINT `crr_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+  KEY `fk_carriers_users1_idx` (`users_id`),
+  CONSTRAINT `fk_carriers_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -53,10 +53,10 @@ CREATE TABLE `clients` (
   `id` int NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
   `contact` varchar(255) NOT NULL,
-  `user_id` int NOT NULL,
+  `users_id` int NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `user_id_idx` (`user_id`),
-  CONSTRAINT `c_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+  KEY `fk_clients_users1_idx` (`users_id`),
+  CONSTRAINT `fk_clients_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -138,9 +138,9 @@ DROP TABLE IF EXISTS `orders_base`;
 CREATE TABLE `orders_base` (
   `id` int NOT NULL AUTO_INCREMENT,
   `order_id` int NOT NULL,
+  `carrier_id` int NOT NULL,
   `driver_id` int NOT NULL,
   `transport_id` int NOT NULL,
-  `carrier_id` int NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `order_id_idx` (`order_id`),
@@ -229,4 +229,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-24 17:27:24
+-- Dump completed on 2022-12-25 20:56:46
