@@ -31,9 +31,9 @@ public class UserServiceTest {
 
     @Test
     public void services_test() {
-        User userMock = new User(1L, "login", "pass", Role.CLIENT);
-        when(userRepository.findById(anyLong())).thenReturn(Optional.of(userMock));
-        User found = service.getUserById(10000L);
+        User userMock = new User(1, "login", "pass", Role.CLIENT);
+        when(userRepository.findById((int) anyLong())).thenReturn(Optional.of(userMock));
+        User found = service.getUserById(10000);
 
         Assertions.assertNotNull(found);
         Assertions.assertEquals(userMock, found);
