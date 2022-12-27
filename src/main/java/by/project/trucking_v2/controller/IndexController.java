@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-public class indexController {
+public class IndexController {
     @Autowired
     private UserRepository userRepository;
 
