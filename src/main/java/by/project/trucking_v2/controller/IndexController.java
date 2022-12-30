@@ -6,20 +6,35 @@ import by.project.trucking_v2.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 
-@RestController
+
+@RestController //контроллер, где каждый метод возвращает объект вместо представления(view)
 public class IndexController {
     @Autowired
     private UserRepository userRepository;
 
-    @RequestMapping(value = "/create_user", method = RequestMethod.GET)
-    public User createUser() {
+//@RequestMapping("/getusers")
+//public List<User> getUsers(){
+//    return
+//}
 
-        return userRepository.save(new User(1, "log","pass", Role.CLIENT));
 
-    }
+//    @RequestMapping("/saveuser") //не указывается GET, PUT, POST и т.д., потому то @RequestMapping сопоставляет все HTTP-операции
+//    public User createUser() {
+//        User u = new User();
+//        try {
+//            u = userRepository.save(new User("log", "pass", Role.CLIENT));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            System.out.println("такой логин уже существует");
+//        }
+//        return u;
+//    }
+
 }
 
 

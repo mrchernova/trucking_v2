@@ -14,20 +14,19 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { TestConfig.class })
-public class UserServiceTest {
+public class UserServiceImplTest {
 
     @MockBean
     private TestConfig.TestUserRepository userRepository;
-    private TestConfig.TestUserService service;
+    private TestConfig.TestUserServiceImpl service;
 
     @BeforeEach
     public void before() {
-        service = new TestConfig.TestUserService(userRepository);
+        service = new TestConfig.TestUserServiceImpl(userRepository);
     }
 
     @Test
