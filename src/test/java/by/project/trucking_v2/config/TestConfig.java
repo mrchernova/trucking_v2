@@ -19,7 +19,7 @@ public class TestConfig {
         public TestUserService(TestUserRepository repo) {
             super(repo);
         }
-        public User getUserById(Long id) {
+        public User getUserById(Integer id) {
             return super.getUserById(id);
         }
     }

@@ -34,7 +34,7 @@ class IndexControllerTest {
     @Test
     public void given_user_created() throws Exception {
 
-        User userMock = new User(1L, "login", "pass", Role.CLIENT);
+        User userMock = new User(1, "login", "pass", Role.CLIENT);
 
         String expectedResponse = mapper.writeValueAsString(userMock);
 

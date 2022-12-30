@@ -17,7 +17,7 @@ public class IndexController {
     @RequestMapping(value = "/create_user", method = RequestMethod.GET)
     public User createUser() {
 
-        return userRepository.save(new User("log","pass", Role.CLIENT));
+        return userRepository.save(new User(1, "log","pass", Role.CLIENT));
 
     }
 }

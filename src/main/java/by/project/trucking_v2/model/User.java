@@ -15,14 +15,18 @@ public class User {
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false)
-    private Long id;
+    private Integer id;
+    @Column(unique = true)
     private String login;
     private String password;
     private Role role;
 
-    public User(String login, String password, Role role) {
+    public User(int i, String login, String password, Role role) {
         this.login = login;
         this.password = password;
         this.role = role;
     }
+
+    @OneToOne(mappedBy = "user")
+    private LegalEntity legalEntity;
 }

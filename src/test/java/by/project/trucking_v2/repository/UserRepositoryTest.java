@@ -16,7 +16,7 @@ class UserRepositoryTest {
 
     @Test
     public void get_by_id_should_return_nothing() {
-        User byId = userRepository.findById(4L).orElse(null);
+        User byId = userRepository.findById(4).orElse(null);
         assertNull(byId);
     }
 }
