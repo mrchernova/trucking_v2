@@ -17,7 +17,7 @@ public class Driver {
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false)
-    private int id;
+    private Integer id;
     private String name;
     private String surname;
     private Status status;

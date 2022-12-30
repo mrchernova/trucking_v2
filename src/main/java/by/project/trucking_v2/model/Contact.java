@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Data
 public class Contact implements Serializable {
 
-    private int unp;
+    private Integer unp;
     private String phone;
 
     @Override

@@ -15,7 +15,7 @@ public class CompletedOrder {
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false)
-    private int id;
+    private Integer id;
     private String report;
 
     @OneToOne

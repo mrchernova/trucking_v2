@@ -15,7 +15,8 @@ public class User {
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false)
-    private int id;
+    private Integer id;
+    @Column(unique = true)
     private String login;
     private String password;
     private Role role;

@@ -17,11 +17,11 @@ public class Transport {
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false)
-    private int id;
+    private Integer id;
     private String model;
-    private VehicleType vehicle_type;
-    private double carrying_capacity;
-    private String number_plate;
+    private VehicleType vehicleType;
+    private Double carryingCapacity;
+    private String numberPlate;
     private Status status;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "legal_entity_id", nullable = false)

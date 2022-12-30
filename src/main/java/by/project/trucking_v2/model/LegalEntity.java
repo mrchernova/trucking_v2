@@ -16,7 +16,7 @@ import java.util.Set;
 @Table(name = "legal_entity")
 public class LegalEntity {
     @Id
-    private int id;
+    private Integer id;
 
     private String title;
     private Contact contact;

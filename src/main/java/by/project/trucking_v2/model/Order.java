@@ -15,12 +15,12 @@ public class Order {
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false)
-    private int id;
+    private Integer id;
     private String description;
-    private double weight;
+    private Double weight;
     private String departure;
     private String destination;
-    private double price;
+    private Double price;
     private Status status;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "legal_entity_id", nullable = false)
