@@ -7,7 +7,10 @@ import java.util.List;
 
 
 public interface UserRepository extends CrudRepository<User, Integer> {
-    List<User> getUsers();
 
-    User getUserById(Integer id);
+    List<User> findAllByOrderByIdDesc();
+    User findOne(Integer id);
+//    User findByLogin(String login);
+
+
 }

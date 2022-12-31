@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en"xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+
+</head>
+<body>
+<div th:switch="${users}">
+<!--    <h2 th:case="null">Студентов не найдено!</h2>-->
+<!--    <div th:case="*">-->
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>login</th>
+                <th>password</th>
+                <th>role</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+<!--                <td th:text="${student.id}"> </td>-->
+                <td th:text="${user.login}"> </td>
+                <td th:text="${user.password}"> </td>
+                <td th:text="${user.role}"> </td>
+<!--                <td th:href="@{student-update/{id}(id=${user.id})}">Редактировать </td>-->
+<!--                <td th:href="@{student-delete/{id}(id=${user.id})}">Удалить </td>-->
+            </tr>
+
+            </tbody>
+        </table>
+<!--    </div>-->
+    <p><a href="/saveuser">Create new user</a></p>
+</div>
+
+</body>
+</html>

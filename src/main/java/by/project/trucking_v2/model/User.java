@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "users")
-public class User {
+public class User{
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false)
@@ -21,7 +21,7 @@ public class User {
     private String password;
     private Role role;
 
-    public User(int i, String login, String password, Role role) {
+    public User(String login, String password, Role role) {
         this.login = login;
         this.password = password;
         this.role = role;
@@ -29,4 +29,8 @@ public class User {
 
     @OneToOne(mappedBy = "user")
     private LegalEntity legalEntity;
+
+
+
+
 }
