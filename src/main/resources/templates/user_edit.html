@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit user</title>
+
+</head>
+<body>
+<div th:insert="header :: copy"></div>
+
+
+<div th:each="el:${user}">
+    <form method="post">
+        <label for="login">Enter login</label>
+        <input id="login" type="text" th:value="${el.login}" name="login">
+        <br>
+        <label for="login">Enter password</label>
+        <input type="text" th:value="${el.password}" name="password">
+        <br>
+        <label>Choose role</label>
+        <select name="role">
+            <option selected th:each="roleOpt : ${el.getRole()}"
+                    th:value="${roleOpt}" th:text="${roleOpt}"></option>
+            <option th:each="roleOpt : ${T(by.project.trucking_v2.model.Role).values()}"
+                    th:value="${roleOpt}" th:text="${roleOpt}"></option>
+        </select>
+
+        <button type="submit">edit user</button>
+    </form>
+
+
+</div>
+</div>
+</body>
+</html>
