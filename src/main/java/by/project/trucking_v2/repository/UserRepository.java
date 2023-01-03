@@ -8,9 +8,6 @@ import java.util.List;
 
 public interface UserRepository extends CrudRepository<User, Integer> {
 
-    List<User> findAllByOrderByIdDesc();
-    User findOne(Integer id);
-//    User findByLogin(String login);
-
+    List<User> findAllByOrderById();
 
 }

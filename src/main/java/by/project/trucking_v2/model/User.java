@@ -3,6 +3,7 @@ package by.project.trucking_v2.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -27,9 +28,12 @@ public class User{
         this.role = role;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
     @OneToOne(mappedBy = "user")
     private LegalEntity legalEntity;
-
 
 
 
