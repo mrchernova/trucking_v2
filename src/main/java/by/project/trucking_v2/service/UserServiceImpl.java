@@ -20,8 +20,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getById(int id) {
-        User user = userRepository.getUserById(id);
+    public User findById(int id) {
+        User user = userRepository.findById(id).orElseThrow();
         if (user == null) {
             throw new NotFoundException(id);
         }
@@ -30,18 +30,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User user)  {
-        user = new User();
         return userRepository.save(user);
     }
 
     @Override
-    public User update(int id) {
-        User u = userRepository.findById(id).orElseThrow();
-        u.setLogin(new User().getLogin());
-        u.setPassword(new User().getPassword());
-        u.setRole(new User().getRole());
+    public User update(int id, User user) {
+        User currentUser = userRepository.findById(id).orElseThrow();
 
-        return userRepository.save(u);
+        currentUser.setLogin(user.getLogin());
+        currentUser.setPassword(user.getPassword());
+        currentUser.setEmail(user.getEmail());
+        currentUser.setRole(user.getRole());
+
+        return userRepository.save(currentUser);
     }
 
     @Override
