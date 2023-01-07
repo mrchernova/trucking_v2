@@ -1,20 +1,18 @@
 package by.project.trucking_v2.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 @Entity
 @Table(name = "users")
 public class User{
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     private Integer id;
     @Column(unique = true)
@@ -33,7 +31,10 @@ public class User{
         return id;
     }
 
-    @OneToOne(mappedBy = "user")
+//    @OneToOne(mappedBy = "user", cascade=CascadeType.REMOVE)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @JoinColumn(name = "le_id")
+//    @PrimaryKeyJoinColumn
     private LegalEntity legalEntity;
 
 

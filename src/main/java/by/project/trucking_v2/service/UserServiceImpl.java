@@ -1,6 +1,5 @@
 package by.project.trucking_v2.service;
 
-import by.project.trucking_v2.exception.NotFoundException;
 import by.project.trucking_v2.model.User;
 import by.project.trucking_v2.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +21,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(int id) {
         User user = userRepository.findById(id).orElseThrow();
-        if (user == null) {
-            throw new NotFoundException(id);
-        }
         return user;
     }
 
     @Override
-    public User save(User user)  {
+    public User save(User user) {
         return userRepository.save(user);
     }
 
@@ -46,7 +42,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(int id)  {
+    public void delete(int id) {
         userRepository.deleteById(id);
     }
 

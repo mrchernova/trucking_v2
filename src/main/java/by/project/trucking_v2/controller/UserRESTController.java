@@ -1,5 +1,6 @@
 package by.project.trucking_v2.controller;
 
+import by.project.trucking_v2.model.Role;
 import by.project.trucking_v2.model.User;
 import by.project.trucking_v2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
