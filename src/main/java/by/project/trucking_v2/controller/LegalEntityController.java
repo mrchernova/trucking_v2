@@ -24,8 +24,8 @@ public class LegalEntityController {
     }
 
     @PostMapping
-    public LegalEntity create(@RequestBody LegalEntity legalEntity, @RequestParam int userId) {
-        return legalEntityService.save(legalEntity, userId);
+    public LegalEntity create(@RequestBody LegalEntity legalEntity) {
+        return legalEntityService.save(legalEntity);
     }
 
     @PutMapping("/{id}")

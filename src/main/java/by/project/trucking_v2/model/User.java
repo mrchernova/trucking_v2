@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Table(name = "users")
 public class User{
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
     @Column(unique = true)
@@ -31,10 +31,8 @@ public class User{
         return id;
     }
 
-//    @OneToOne(mappedBy = "user", cascade=CascadeType.REMOVE)
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name = "le_id")
-//    @PrimaryKeyJoinColumn
     private LegalEntity legalEntity;
 
 

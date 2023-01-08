@@ -9,8 +9,7 @@ public class NotFoundException extends RuntimeException{
         super();
 
         final Logger logger = Logger.getLogger(NotFoundException.class.getName());
-//        logger.fine("fine!");
-        logger.info("Мы не знаем что это такое, если бы мы знали что это такое, мы не знаем что это такое");
+        logger.warning("Мы не знаем что это такое, если бы мы знали что это такое, мы не знаем что это такое");
         logger.severe("404. Such id not found");
     }
 }

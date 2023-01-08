@@ -10,5 +10,5 @@ import java.util.List;
 
 @Repository
 public interface LegalEntityRepository extends CrudRepository<LegalEntity, Integer> {
-    List<LegalEntity> findAllByOrderById();
+//    List<LegalEntity> findAllByOrderById();
 }
