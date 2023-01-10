@@ -26,7 +26,7 @@ public class LegalEntity {
     private String title;
     private Contact contact;
 
-    //!! nenenen
+    //!! nenenen работает не трогай!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     @JsonIgnore
 @OneToOne(mappedBy = "legalEntity")
     private User user;
