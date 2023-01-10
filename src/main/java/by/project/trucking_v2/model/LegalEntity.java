@@ -26,27 +26,18 @@ public class LegalEntity {
     private String title;
     private Contact contact;
 
-
-    /**
-     * mappedBy = «legalEntity» — это имя поля в классе Transport
-     * FetchType.LAZY - не подтягивать весь транспорт пока не попросят
-     * new HashSet<>(); - если у юр.л нет транспорта, то не получаем null
-     */
-//    @OneToMany(mappedBy = "legalEntity",cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Transport> transports = new ArrayList<>();
+    //!! nenenen
     @JsonIgnore
-    @OneToMany(mappedBy = "legalEntity", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Transport> transports = new ArrayList<>();
-//
-//    @Override
-//    public String toString() {
-//        return "LegalEntity{" +
-//                "id=" + id +
-//                ", title='" + title + '\'' +
-//                ", contact=" + contact +
-//                ", transports=" + transports +
-//                '}';
-//    }
+@OneToOne(mappedBy = "legalEntity")
+    private User user;
+
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "legalEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Transport> transports = new ArrayList<>();
+
+
+
+
 
 
 

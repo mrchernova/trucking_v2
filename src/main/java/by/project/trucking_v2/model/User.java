@@ -31,7 +31,8 @@ public class User{
         return id;
     }
 
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+//    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "le_id")
     private LegalEntity legalEntity;
 
