@@ -29,15 +29,6 @@ public class LegalEntityServiceImpl implements LegalEntityService {
         return legalEntityRepository.findById(id).orElseThrow(() -> new NotFoundException());
     }
 
-    @Override
-    public LegalEntity save(LegalEntity legalEntity) {
-        LegalEntity newLegalEntity = LegalEntity.builder()
-                .title(legalEntity.getTitle())
-                .contact(legalEntity.getContact())
-                .build();
-        return legalEntityRepository.save(newLegalEntity);
-    }
-
 
     @Override
     public LegalEntity update(int id, LegalEntity legalEntity) {
@@ -45,11 +36,6 @@ public class LegalEntityServiceImpl implements LegalEntityService {
         currentLegalEntity.setTitle(legalEntity.getTitle());
         currentLegalEntity.setContact(legalEntity.getContact());
         return legalEntityRepository.save(currentLegalEntity);
-    }
-
-    @Override
-    public void delete(int id) {
-        legalEntityRepository.deleteById(id);
     }
 
 }

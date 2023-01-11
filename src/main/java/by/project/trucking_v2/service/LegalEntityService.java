@@ -10,10 +10,6 @@ public interface LegalEntityService {
 
     LegalEntity findById(int id);
 
-    LegalEntity save(LegalEntity legalEntity);
-
     LegalEntity update(int id, LegalEntity legalEntity);
-
-    void delete(int id);
 
 }

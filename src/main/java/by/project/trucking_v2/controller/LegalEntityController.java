@@ -23,19 +23,9 @@ public class LegalEntityController {
         return legalEntityService.findById(id);
     }
 
-    @PostMapping
-    public LegalEntity create(@RequestBody LegalEntity legalEntity) {
-        return legalEntityService.save(legalEntity);
-    }
-
     @PutMapping("/{id}")
     public LegalEntity update(@PathVariable("id") int id, @RequestBody LegalEntity legalEntity) {
         return legalEntityService.update(id, legalEntity);
-    }
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") int id) {
-        legalEntityService.delete(id);
     }
 
 }

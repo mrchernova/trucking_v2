@@ -26,19 +26,13 @@ public class LegalEntity {
     private String title;
     private Contact contact;
 
-    //!! nenenen работает не трогай!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     @JsonIgnore
-@OneToOne(mappedBy = "legalEntity")
+    @OneToOne(mappedBy = "legalEntity")
     private User user;
 
-//    @JsonIgnore
-//    @OneToMany(mappedBy = "legalEntity", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Transport> transports = new ArrayList<>();
-
-
-
-
-
+    @JsonIgnore
+    @OneToMany(mappedBy = "legalEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Transport> transports = new ArrayList<>();
 
 
 //    @OneToMany(fetch = FetchType.LAZY, mappedBy = "legalEntity")

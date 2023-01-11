@@ -6,8 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,14 +18,14 @@ public class Transport {
     @GeneratedValue
     private Integer id;
     private String model;
-//    private VehicleType vehicleType;
-//    private Double carryingCapacity;
-//    private String numberPlate;
-//    private Status status;
+    private VehicleType vehicleType;
+    private Double carryingCapacity;
+    private String numberPlate;
+    private Status status;
 
 
 
-    @ManyToOne()    //fetch = FetchType.LAZY
+    @ManyToOne()
     @JoinColumn(name = "legal_entity_id")
     private LegalEntity legalEntity;
 
@@ -36,18 +34,13 @@ public class Transport {
         return "Transport{" +
                 "id=" + id +
                 ", model='" + model + '\'' +
-//                ", legalEntity=" + legalEntity +
+                ", vehicleType=" + vehicleType +
+                ", carryingCapacity=" + carryingCapacity +
+                ", numberPlate='" + numberPlate + '\'' +
+                ", status=" + status +
                 '}';
     }
 
-
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "transport")
+    //    @OneToMany(fetch = FetchType.LAZY, mappedBy = "transport")
 //    private Set<CompletedOrder> completedOrder = new HashSet<>();
 }
-
-/**
- * Почти все работает кроме вывода ВСЕХ машин почему-то
- *
- * после добавления toString стало выводить ВСЁ, но теперь удаляет все
- * из legalEntity с ошибкой 500. УДАЛЯЕТ с ошибкой!!! мы не знаем что это такое...
- */

@@ -36,6 +36,10 @@ public class TransportServiceImpl implements TransportService {
         LegalEntity le = legalEntityRepository.findById(le_id).orElseThrow(NotFoundException::new);
         Transport newTransport = new Transport();
         newTransport.setModel(transport.getModel());
+        newTransport.setVehicleType(transport.getVehicleType());
+        newTransport.setCarryingCapacity(transport.getCarryingCapacity());
+        newTransport.setNumberPlate(transport.getNumberPlate());
+        newTransport.setStatus(transport.getStatus());
         newTransport.setLegalEntity(le);
         return transportRepository.save(newTransport);
     }
@@ -45,6 +49,10 @@ public class TransportServiceImpl implements TransportService {
     public Transport update(int id, Transport transport) {
         Transport currentTransport = transportRepository.findById(id).orElseThrow(NotFoundException::new);
         currentTransport.setModel(transport.getModel());
+        currentTransport.setVehicleType(transport.getVehicleType());
+        currentTransport.setCarryingCapacity(transport.getCarryingCapacity());
+        currentTransport.setNumberPlate(transport.getNumberPlate());
+        currentTransport.setStatus(transport.getStatus());
         return transportRepository.save(currentTransport);
     }
 
