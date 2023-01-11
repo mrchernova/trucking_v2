@@ -27,11 +27,7 @@ public class User{
         this.role = role;
     }
 
-    public Integer getId() {
-        return id;
-    }
 
-//    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "le_id")
     private LegalEntity legalEntity;

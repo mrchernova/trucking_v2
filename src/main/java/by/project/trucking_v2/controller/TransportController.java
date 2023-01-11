@@ -23,13 +23,10 @@ public class TransportController {
         return transportService.findById(id);
     }
 
-
-
     @PostMapping
     public Transport create(@RequestBody Transport transport, @RequestParam int le_id) {
         return transportService.save(transport, le_id);
     }
-
 
     @PutMapping("/{id}")
     public Transport update(@PathVariable("id") int id, @RequestBody Transport transport) {

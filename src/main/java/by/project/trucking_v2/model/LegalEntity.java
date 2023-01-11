@@ -31,13 +31,15 @@ public class LegalEntity {
     private User user;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "legalEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "legalEntity", cascade = CascadeType.ALL)
     private List<Transport> transports = new ArrayList<>();
 
 
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "legalEntity")
-//    private List<Driver> drivers = new ArrayList<>();
-//
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "legalEntity")
-//    private List<Order> orders = new ArrayList<>();
+    @JsonIgnore
+    @OneToMany(mappedBy = "legalEntity", cascade = CascadeType.ALL)
+    private List<Driver> drivers = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "legalEntity", cascade = CascadeType.ALL)
+    private List<Order> orders = new ArrayList<>();
 }
