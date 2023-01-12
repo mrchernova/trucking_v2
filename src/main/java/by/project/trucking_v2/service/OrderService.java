@@ -16,4 +16,7 @@ public interface OrderService {
 
     void delete(int id);
 
+
+    Order orderChoice(int id, Order order);
+
 }

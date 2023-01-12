@@ -11,6 +11,7 @@ public interface CompletedOrderService {
 
     CompletedOrder findById(int id);
 
-    CompletedOrder update(int id, CompletedOrder completedOrder);
+    CompletedOrder orderInProgress(int id_order);
+
 
 }

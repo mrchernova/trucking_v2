@@ -15,7 +15,7 @@ import javax.persistence.*;
 @Table(name = "completed_orders")
 public class CompletedOrder {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String report;
 

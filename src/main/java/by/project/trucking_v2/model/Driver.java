@@ -20,8 +20,7 @@ import java.util.Set;
 @Table(name = "drivers")
 public class Driver {
     @Id
-    @GeneratedValue
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     private String surname;

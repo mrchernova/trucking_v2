@@ -38,4 +38,16 @@ public class OrderController {
         orderService.delete(id);
     }
 
+
+
+    /**
+     * Обрабатывает событие, когда Перевозчик выберет заказ
+     * Статус заказа изменится на IN_PROGRESS
+     * Сам Перевозчик будет сохранен в сессии (скоро, но пока не работает)
+     */
+    @PutMapping("/deal/{id}")
+    public Order orderChoice(@PathVariable("id") int id, @RequestBody Order order) {
+        return orderService.orderChoice(id, order);
+    }
+
 }

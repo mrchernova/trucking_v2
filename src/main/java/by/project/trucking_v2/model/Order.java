@@ -1,5 +1,6 @@
 package by.project.trucking_v2.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +16,7 @@ import javax.persistence.*;
 @Table(name = "orders")
 public class Order {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String description;
     private Double weight;
@@ -29,6 +30,7 @@ public class Order {
     private LegalEntity legalEntity;
 
 
+    @JsonIgnore
     @OneToOne(mappedBy = "order")
     private CompletedOrder completedOrder;
 }

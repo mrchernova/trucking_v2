@@ -18,7 +18,7 @@ import java.util.List;
 @Table(name = "transport")
 public class Transport {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String model;
     private VehicleType vehicleType;

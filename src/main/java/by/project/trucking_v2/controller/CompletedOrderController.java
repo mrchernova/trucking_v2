@@ -2,6 +2,7 @@ package by.project.trucking_v2.controller;
 
 import by.project.trucking_v2.model.CompletedOrder;
 import by.project.trucking_v2.model.LegalEntity;
+import by.project.trucking_v2.model.Order;
 import by.project.trucking_v2.service.CompletedOrderService;
 import by.project.trucking_v2.service.LegalEntityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +26,7 @@ public class CompletedOrderController {
         return completedOrderService.findById(id);
     }
 
-    @PutMapping("/{id}")
-    public CompletedOrder update(@PathVariable("id") int id, @RequestBody CompletedOrder completedOrder) {
-        return completedOrderService.update(id, completedOrder);
-    }
+
+
 
 }
