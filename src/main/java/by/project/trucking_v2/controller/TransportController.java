@@ -19,22 +19,22 @@ public class TransportController {
     }
 
     @GetMapping("/{id}")
-    public Transport getById(@PathVariable("id") int id) {
+    public Transport getById(@PathVariable Integer id) {
         return transportService.findById(id);
     }
 
     @PostMapping
-    public Transport create(@RequestBody Transport transport, @RequestParam int le_id) {
-        return transportService.save(transport, le_id);
+    public Transport create(@RequestBody Transport transport) {
+        return transportService.save(transport);
     }
 
     @PutMapping("/{id}")
-    public Transport update(@PathVariable("id") int id, @RequestBody Transport transport) {
+    public Transport update(@PathVariable Integer id, @RequestBody Transport transport) {
         return transportService.update(id, transport);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") int id) {
+    public void delete(@PathVariable Integer id) {
         transportService.delete(id);
     }
 

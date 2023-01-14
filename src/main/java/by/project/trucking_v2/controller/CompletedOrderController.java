@@ -22,7 +22,7 @@ public class CompletedOrderController {
     }
 
     @GetMapping("/{id}")
-    public CompletedOrder getById(@PathVariable("id") int id) {
+    public CompletedOrder getById(@PathVariable Integer id) {
         return completedOrderService.findById(id);
     }
 

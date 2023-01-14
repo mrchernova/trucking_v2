@@ -8,12 +8,12 @@ public interface TransportService {
 
     List<Transport> getAll();
 
-    Transport findById(int id);
+    Transport findById(Integer id);
 
-    Transport save(Transport transport, int le_id);
+    Transport save(Transport transport);
 
-    Transport update(int id, Transport transport);
+    Transport update(Integer id, Transport transport);
 
-    void delete(int id);
+    void delete(Integer id);
 
 }

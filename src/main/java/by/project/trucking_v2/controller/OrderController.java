@@ -19,22 +19,22 @@ public class OrderController {
     }
 
     @GetMapping("/{id}")
-    public Order getById(@PathVariable("id") int id) {
+    public Order getById(@PathVariable Integer id) {
         return orderService.findById(id);
     }
 
     @PostMapping
-    public Order create(@RequestBody Order order, @RequestParam int le_id) {
-        return orderService.save(order, le_id);
+    public Order create(@RequestBody Order order) {
+        return orderService.save(order);
     }
 
     @PutMapping("/{id}")
-    public Order update(@PathVariable("id") int id, @RequestBody Order order) {
+    public Order update(@PathVariable Integer id, @RequestBody Order order) {
         return orderService.update(id, order);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") int id) {
+    public void delete(@PathVariable Integer id) {
         orderService.delete(id);
     }
 
@@ -43,10 +43,9 @@ public class OrderController {
     /**
      * Обрабатывает событие, когда Перевозчик выберет заказ
      * Статус заказа изменится на IN_PROGRESS
-     * Сам Перевозчик будет сохранен в сессии (скоро, но пока не работает)
      */
     @PutMapping("/deal/{id}")
-    public Order orderChoice(@PathVariable("id") int id, @RequestBody Order order) {
+    public Order orderChoice(@PathVariable Integer id, @RequestBody Order order) {
         return orderService.orderChoice(id, order);
     }
 

@@ -34,4 +34,5 @@ public class Driver {
     @JsonIgnore
     @OneToMany(mappedBy = "driver")
     private List<CompletedOrder> CompletedOrders = new ArrayList<>();
+
 }

@@ -13,9 +13,7 @@ import java.util.List;
 @Service
 public class LegalEntityServiceImpl implements LegalEntityService {
     @Autowired
-    LegalEntityRepository legalEntityRepository;
-    @Autowired
-    UserRepository userRepository;
+    private LegalEntityRepository legalEntityRepository;
 
     @Override
     public List<LegalEntity> getAll() {
@@ -25,13 +23,13 @@ public class LegalEntityServiceImpl implements LegalEntityService {
     }
 
     @Override
-    public LegalEntity findById(int id) {
+    public LegalEntity findById(Integer id) {
         return legalEntityRepository.findById(id).orElseThrow(() -> new NotFoundException());
     }
 
 
     @Override
-    public LegalEntity update(int id, LegalEntity legalEntity) {
+    public LegalEntity update(Integer id, LegalEntity legalEntity) {
         LegalEntity currentLegalEntity = legalEntityRepository.findById(id).orElseThrow();
         currentLegalEntity.setTitle(legalEntity.getTitle());
         currentLegalEntity.setContact(legalEntity.getContact());

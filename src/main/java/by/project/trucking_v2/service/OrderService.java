@@ -8,15 +8,15 @@ public interface OrderService {
 
     List<Order> getAll();
 
-    Order findById(int id);
+    Order findById(Integer id);
 
-    Order save(Order order, int le_id);
+    Order save(Order order);
 
-    Order update(int id, Order order);
+    Order update(Integer id, Order order);
 
-    void delete(int id);
+    void delete(Integer id);
 
 
-    Order orderChoice(int id, Order order);
+    Order orderChoice(Integer id, Order order);
 
 }

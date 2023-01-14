@@ -16,14 +16,10 @@ import java.util.List;
 
 @Service
 public class CompletedOrderServiceImpl implements CompletedOrderService {
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_YELLOW = "\u001B[33m";
-    public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_RESET = "\u001B[0m";
     private static final Logger log = LoggerFactory.getLogger(OrderServiceImpl.class);
 
     @Autowired
-    CompletedOrderRepository completedOrderRepository;
+    private CompletedOrderRepository completedOrderRepository;
     @Autowired
     private OrderRepository orderRepository;
     @Autowired
@@ -39,7 +35,7 @@ public class CompletedOrderServiceImpl implements CompletedOrderService {
     }
 
     @Override
-    public CompletedOrder findById(int id) {
+    public CompletedOrder findById(Integer id) {
         return completedOrderRepository.findById(id).orElseThrow(() -> new NotFoundException());
     }
 
@@ -50,17 +46,19 @@ public class CompletedOrderServiceImpl implements CompletedOrderService {
      * следовательно передает driver_id и transport_id
      */
     @Override
-    public CompletedOrder orderInProgress(int id_order) {
-        log.info(ANSI_GREEN + "находим нужный заказ" + ANSI_RESET);
-        Order currentOrder = orderRepository.findById(id_order).orElseThrow(NotFoundException::new);
+    public CompletedOrder orderInProgress(Integer orderId) {
+        log.info("находим нужный заказ");
+        Order currentOrder = orderRepository.findById(orderId).orElseThrow(NotFoundException::new);
 
+        log.info("назначается водитель и транспорт для выполнения заказа");
         /*это будет передаваться* через форму*/
         int id_driver = 1;
         int id_transport = 1;
 
-        Driver thisDriver = driverRepository.findById(id_driver).orElseThrow(()->new RuntimeException(ANSI_RED + "В базе нет водителя с таким id" + ANSI_RESET));
-        Transport thisTransport = transportRepository.findById(id_transport).orElseThrow(()->new RuntimeException(ANSI_RED + "В базе нет машин с таким id" + ANSI_RESET));
+        Driver thisDriver = driverRepository.findById(id_driver).orElseThrow(()->new RuntimeException("В базе нет водителя с таким id"));
+        Transport thisTransport = transportRepository.findById(id_transport).orElseThrow(()->new RuntimeException("В базе нет машин с таким id"));
 
+        log.info("заполняется таблица CompletedOrder");
         CompletedOrder newCompleteOrder = new CompletedOrder();
         newCompleteOrder.setOrder(currentOrder);
         newCompleteOrder.setDriver(thisDriver);

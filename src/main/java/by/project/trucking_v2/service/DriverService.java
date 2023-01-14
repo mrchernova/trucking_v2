@@ -9,12 +9,12 @@ public interface DriverService {
 
     List<Driver> getAll();
 
-    Driver findById(int id);
+    Driver findById(Integer id);
 
-    Driver save(Driver driver, int le_id);
+    Driver save(Driver driver);
 
-    Driver update(int id, Driver driver);
+    Driver update(Integer id, Driver driver);
 
-    void delete(int id);
+    void delete(Integer id);
 
 }

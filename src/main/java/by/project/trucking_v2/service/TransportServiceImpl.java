@@ -1,10 +1,17 @@
 package by.project.trucking_v2.service;
 
+import by.project.trucking_v2.exception.AccessDeniedException;
+import by.project.trucking_v2.exception.EmptyResultException;
 import by.project.trucking_v2.exception.NotFoundException;
 import by.project.trucking_v2.model.LegalEntity;
+import by.project.trucking_v2.model.Role;
 import by.project.trucking_v2.model.Transport;
+import by.project.trucking_v2.model.User;
 import by.project.trucking_v2.repository.LegalEntityRepository;
 import by.project.trucking_v2.repository.TransportRepository;
+import by.project.trucking_v2.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
@@ -13,11 +20,13 @@ import java.util.List;
 
 @Service
 public class TransportServiceImpl implements TransportService {
+    private static final Logger log = LoggerFactory.getLogger(TransportServiceImpl.class);
     @Autowired
-    TransportRepository transportRepository;
+    private TransportRepository transportRepository;
     @Autowired
-    LegalEntityRepository legalEntityRepository;
-
+    private LegalEntityRepository legalEntityRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public List<Transport> getAll() {
@@ -27,26 +36,34 @@ public class TransportServiceImpl implements TransportService {
     }
 
     @Override
-    public Transport findById(int id) {
+    public Transport findById(Integer id) {
         return transportRepository.findById(id).orElseThrow(() -> new NotFoundException());
     }
 
     @Override
-    public Transport save(Transport transport, int le_id) {
-        LegalEntity le = legalEntityRepository.findById(le_id).orElseThrow(NotFoundException::new);
-        Transport newTransport = new Transport();
-        newTransport.setModel(transport.getModel());
-        newTransport.setVehicleType(transport.getVehicleType());
-        newTransport.setCarryingCapacity(transport.getCarryingCapacity());
-        newTransport.setNumberPlate(transport.getNumberPlate());
-        newTransport.setStatus(transport.getStatus());
-        newTransport.setLegalEntity(le);
-        return transportRepository.save(newTransport);
+    public Transport save(Transport transport) {
+        /** проверка на наличие юр.лица */
+        if (legalEntityRepository.existsById(transport.getLegalEntity().getId())) {
+
+            /** проверка роли */
+            User u = userRepository.findByLegalEntityId(transport.getLegalEntity().getId()); //нах юзера по легал энтити айди
+            if (u.getRole() == Role.CARRIER) {
+                log.info("Транспортное средство успешно сохранено");
+                return transportRepository.save(transport);
+            } else {
+                log.warn("транспортное средство НЕ сохранено. Вы должны быть зарегистрированы как перевозчик");
+                throw new AccessDeniedException();
+            }
+        } else {
+            log.warn("Транспортное средство НЕ сохранено. Юр.лицо с id='" + transport.getLegalEntity().getId() + "' не найдено");
+            throw new NotFoundException();
+        }
+
     }
 
 
     @Override
-    public Transport update(int id, Transport transport) {
+    public Transport update(Integer id, Transport transport) {
         Transport currentTransport = transportRepository.findById(id).orElseThrow(NotFoundException::new);
         currentTransport.setModel(transport.getModel());
         currentTransport.setVehicleType(transport.getVehicleType());
@@ -57,8 +74,14 @@ public class TransportServiceImpl implements TransportService {
     }
 
     @Override
-    public void delete(int id) {
-        transportRepository.deleteById(id);
+    public void delete(Integer id) {
+        if (transportRepository.existsById(id)) {
+            transportRepository.deleteById(id);
+            log.info("Транспортное средство успешно удалено");
+        } else {
+            log.warn("Транспортное средство НЕ удалено. ТС с id=" + id + " не существует");
+            throw new EmptyResultException();
+        }
     }
 
 }

@@ -19,22 +19,22 @@ public class DriverController {
     }
 
     @GetMapping("/{id}")
-    public Driver getById(@PathVariable("id") int id) {
+    public Driver getById(@PathVariable("id") Integer id) {
         return driverService.findById(id);
     }
 
     @PostMapping
-    public Driver create(@RequestBody Driver driver, @RequestParam int le_id) {
-        return driverService.save(driver, le_id);
+    public Driver create(@RequestBody Driver driver) {
+        return driverService.save(driver);
     }
 
     @PutMapping("/{id}")
-    public Driver update(@PathVariable("id") int id, @RequestBody Driver driver) {
+    public Driver update(@PathVariable Integer id, @RequestBody Driver driver) {
         return driverService.update(id, driver);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") int id) {
+    public void delete(@PathVariable("id") Integer id) {
         driverService.delete(id);
     }
 

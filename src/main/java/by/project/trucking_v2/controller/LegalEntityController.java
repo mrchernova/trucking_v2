@@ -19,12 +19,12 @@ public class LegalEntityController {
     }
 
     @GetMapping("/{id}")
-    public LegalEntity getById(@PathVariable("id") int id) {
+    public LegalEntity getById(@PathVariable("id") Integer id) {
         return legalEntityService.findById(id);
     }
 
     @PutMapping("/{id}")
-    public LegalEntity update(@PathVariable("id") int id, @RequestBody LegalEntity legalEntity) {
+    public LegalEntity update(@PathVariable Integer id, @RequestBody LegalEntity legalEntity) {
         return legalEntityService.update(id, legalEntity);
     }
 

@@ -1,10 +1,18 @@
 package by.project.trucking_v2.service;
 
+import by.project.trucking_v2.exception.AccessDeniedException;
+import by.project.trucking_v2.exception.DatabaseException;
+import by.project.trucking_v2.exception.EmptyResultException;
 import by.project.trucking_v2.exception.NotFoundException;
 import by.project.trucking_v2.model.Driver;
 import by.project.trucking_v2.model.LegalEntity;
+import by.project.trucking_v2.model.Role;
+import by.project.trucking_v2.model.User;
 import by.project.trucking_v2.repository.DriverRepository;
 import by.project.trucking_v2.repository.LegalEntityRepository;
+import by.project.trucking_v2.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
@@ -13,10 +21,13 @@ import java.util.List;
 
 @Service
 public class DriverServiceImpl implements DriverService {
+    private static final Logger log = LoggerFactory.getLogger(DriverServiceImpl.class);
     @Autowired
-    DriverRepository driverRepository;
+    private DriverRepository driverRepository;
     @Autowired
-    LegalEntityRepository legalEntityRepository;
+    private LegalEntityRepository legalEntityRepository;
+    @Autowired
+    private UserRepository userRepository;
 
 
     @Override
@@ -27,24 +38,33 @@ public class DriverServiceImpl implements DriverService {
     }
 
     @Override
-    public Driver findById(int id) {
+    public Driver findById(Integer id) {
         return driverRepository.findById(id).orElseThrow(() -> new NotFoundException());
     }
 
     @Override
-    public Driver save(Driver driver, int le_id) {
-        LegalEntity le = legalEntityRepository.findById(le_id).orElseThrow(NotFoundException::new);
-        Driver newDriver = new Driver();
-        newDriver.setName(driver.getName());
-        newDriver.setSurname(driver.getSurname());
-        newDriver.setStatus(driver.getStatus());
-        newDriver.setLegalEntity(le);
-        return driverRepository.save(newDriver);
+    public Driver save(Driver driver) {
+        /** проверка на наличие юр.лица */
+        if (legalEntityRepository.existsById(driver.getLegalEntity().getId())) {
+
+            /** проверка роли */
+            User u = userRepository.findByLegalEntityId(driver.getLegalEntity().getId()); //нах юзера по легал энтити айди
+            if (u.getRole() == Role.CARRIER) {
+                log.info("Водитель успешно сохранен");
+                return driverRepository.save(driver);
+            } else {
+                log.warn("Водитель НЕ сохранен. Вы должны быть зарегистрированы как перевозчик");
+                throw new AccessDeniedException();
+            }
+        } else {
+            log.warn("Водитель НЕ сохранен. Юр.лицо с id='" + driver.getLegalEntity().getId() + "' не найдено");
+            throw new NotFoundException();
+        }
     }
 
 
     @Override
-    public Driver update(int id, Driver driver) {
+    public Driver update(Integer id, Driver driver) {
         Driver currentDriver = driverRepository.findById(id).orElseThrow(NotFoundException::new);
         currentDriver.setName(driver.getName());
         currentDriver.setSurname(driver.getSurname());
@@ -53,8 +73,14 @@ public class DriverServiceImpl implements DriverService {
     }
 
     @Override
-    public void delete(int id) {
-        driverRepository.deleteById(id);
+    public void delete(Integer id) {
+        if (driverRepository.existsById(id)) {
+            driverRepository.deleteById(id);
+            log.info("Водитель успешно удален");
+        }else {
+            log.warn("Водитель НЕ удален. Водителя с id=" + id + " не существует");
+            throw new EmptyResultException();
+        }
     }
 
 }

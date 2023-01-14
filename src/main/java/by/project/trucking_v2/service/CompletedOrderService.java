@@ -9,9 +9,9 @@ public interface CompletedOrderService {
 
     List<CompletedOrder> getAll();
 
-    CompletedOrder findById(int id);
+    CompletedOrder findById(Integer id);
 
-    CompletedOrder orderInProgress(int id_order);
+    CompletedOrder orderInProgress(Integer orderId);
 
 
 }

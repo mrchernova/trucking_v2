@@ -8,8 +8,8 @@ public interface LegalEntityService {
 
     List<LegalEntity> getAll();
 
-    LegalEntity findById(int id);
+    LegalEntity findById(Integer id);
 
-    LegalEntity update(int id, LegalEntity legalEntity);
+    LegalEntity update(Integer id, LegalEntity legalEntity);
 
 }
