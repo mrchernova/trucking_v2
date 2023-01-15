@@ -13,8 +13,8 @@ import java.io.Serializable;
 @Builder
 public class Contact implements Serializable {
 
-    private Integer unp;
-    private String phone;
+    public Integer unp = 40001911;
+    public String phone = "+375(29)222-33-33";
 
     @Override
     public String toString() {
