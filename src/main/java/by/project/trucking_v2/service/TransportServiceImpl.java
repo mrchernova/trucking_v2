@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -40,6 +41,7 @@ public class TransportServiceImpl implements TransportService {
         return transportRepository.findById(id).orElseThrow(() -> new NotFoundException());
     }
 
+    @Transactional
     @Override
     public Transport save(Transport transport) {
         /** проверка на наличие юр.лица */
@@ -61,7 +63,7 @@ public class TransportServiceImpl implements TransportService {
 
     }
 
-
+    @Transactional
     @Override
     public Transport update(Integer id, Transport transport) {
         Transport currentTransport = transportRepository.findById(id).orElseThrow(NotFoundException::new);
@@ -72,7 +74,7 @@ public class TransportServiceImpl implements TransportService {
         currentTransport.setStatus(transport.getStatus());
         return transportRepository.save(currentTransport);
     }
-
+    @Transactional
     @Override
     public void delete(Integer id) {
         if (transportRepository.existsById(id)) {

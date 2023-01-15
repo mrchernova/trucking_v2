@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -27,7 +28,7 @@ public class LegalEntityServiceImpl implements LegalEntityService {
         return legalEntityRepository.findById(id).orElseThrow(() -> new NotFoundException());
     }
 
-
+    @Transactional
     @Override
     public LegalEntity update(Integer id, LegalEntity legalEntity) {
         LegalEntity currentLegalEntity = legalEntityRepository.findById(id).orElseThrow();

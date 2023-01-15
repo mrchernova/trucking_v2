@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -38,7 +39,7 @@ public class OrderServiceImpl implements OrderService {
     public Order findById(Integer id) {
         return orderRepository.findById(id).orElseThrow(() -> new NotFoundException());
     }
-
+    @Transactional
     @Override
     public Order save(Order order) {
         /** проверка на наличие юр.лица */
@@ -59,7 +60,7 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-
+    @Transactional
     @Override
     public Order update(Integer id, Order order) {
         Order currentOrder = orderRepository.findById(id).orElseThrow(NotFoundException::new);
@@ -72,7 +73,7 @@ public class OrderServiceImpl implements OrderService {
 
            return orderRepository.save(currentOrder);
        }
-
+    @Transactional
     @Override
     public void delete(Integer id) {
         if (orderRepository.existsById(id)) {
@@ -83,7 +84,7 @@ public class OrderServiceImpl implements OrderService {
             throw new EmptyResultException();
         }
     }
-
+    @Transactional
     @Override
     public Order orderChoice(Integer id, Order order) {
         Order currentOrder = orderRepository.findById(id).orElseThrow(NotFoundException::new);

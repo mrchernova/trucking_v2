@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -41,7 +42,7 @@ public class DriverServiceImpl implements DriverService {
     public Driver findById(Integer id) {
         return driverRepository.findById(id).orElseThrow(() -> new NotFoundException());
     }
-
+    @Transactional
     @Override
     public Driver save(Driver driver) {
         /** проверка на наличие юр.лица */
@@ -62,7 +63,7 @@ public class DriverServiceImpl implements DriverService {
         }
     }
 
-
+    @Transactional
     @Override
     public Driver update(Integer id, Driver driver) {
         Driver currentDriver = driverRepository.findById(id).orElseThrow(NotFoundException::new);
@@ -71,7 +72,7 @@ public class DriverServiceImpl implements DriverService {
         currentDriver.setStatus(driver.getStatus());
         return driverRepository.save(currentDriver);
     }
-
+    @Transactional
     @Override
     public void delete(Integer id) {
         if (driverRepository.existsById(id)) {

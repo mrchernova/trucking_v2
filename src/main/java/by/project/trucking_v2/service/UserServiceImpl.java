@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 
@@ -33,7 +34,7 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(id).orElseThrow(() -> new NotFoundException());
         return user;
     }
-
+    @Transactional
     @Override
     public User save(User user) {
         if (userRepository.findByLogin(user.getLogin()) == null){
@@ -45,7 +46,7 @@ public class UserServiceImpl implements UserService {
         }
 
     }
-
+    @Transactional
     @Override
     public User update(Integer id, User user) {
         User currentUser = userRepository.findById(id).orElseThrow(() -> new NotFoundException());
@@ -55,7 +56,7 @@ public class UserServiceImpl implements UserService {
         currentUser.setRole(user.getRole());
         return userRepository.save(currentUser);
     }
-
+    @Transactional
     @Override
     public void delete(Integer id) {
         if (userRepository.existsById(id)) {
