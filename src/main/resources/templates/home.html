@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+  <title>Home</title>
+</head>
+<body>
+<div th:insert="header :: copy"></div>
+
+
+<p>HOME PAGE</p>
+<h1 th:inline="text">Hello!!<span th:remove="tag" sec:authentication="name"></span>!</h1>
+
+<p><a th:href="'/index'">index page</a></p>
+</form>
+</body>
+</html>
+
+
