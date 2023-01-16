@@ -1,32 +1,37 @@
 package by.project.trucking_v2.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 @Entity
 @Table(name = "transport")
 public class Transport {
     @Id
-    @GeneratedValue
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String model;
     private VehicleType vehicleType;
     private Double carryingCapacity;
     private String numberPlate;
     private Status status;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "legal_entity_id", nullable = false)
+
+    @ManyToOne()
+    @JoinColumn(name = "legal_entity_id")
     private LegalEntity legalEntity;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "transport")
-    private Set<CompletedOrder> completedOrder = new HashSet<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "transport")
+    private List<CompletedOrder> CompletedOrders = new ArrayList<>();
 }

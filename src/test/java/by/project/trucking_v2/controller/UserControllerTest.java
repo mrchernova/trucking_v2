@@ -20,8 +20,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(IndexController.class)
-class IndexControllerTest {
+@WebMvcTest(UserController.class)
+class UserControllerTest {
 
     @Autowired
     private MockMvc mvc;
@@ -34,7 +34,7 @@ class IndexControllerTest {
     @Test
     public void given_user_created() throws Exception {
 
-        User userMock = new User(1, "login", "pass", Role.CLIENT);
+        User userMock = new User("login", "pass", Role.CLIENT);
 
         String expectedResponse = mapper.writeValueAsString(userMock);
 

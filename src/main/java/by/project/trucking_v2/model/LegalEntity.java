@@ -1,36 +1,45 @@
 package by.project.trucking_v2.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 @Entity
 @Table(name = "legal_entity")
 public class LegalEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     private String title;
     private Contact contact;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", unique = true, nullable = false)
+    @JsonIgnore
+    @OneToOne(mappedBy = "legalEntity")
     private User user;
-                                                                    // mappedBy = "legalEntity" - указывает как замарлено в другой таблице
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "legalEntity")    //FetchType.LAZY - не подтягивать весь транспорт пока не попросят
-    private Set<Transport> transport = new HashSet<>();             //если у юр.л нет транспорта, то не получаем null
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "legalEntity")
-    private Set<Driver> drivers = new HashSet<>();
+    @JsonIgnore
+    @OneToMany(mappedBy = "legalEntity", cascade = CascadeType.ALL)
+    private List<Transport> transports = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "legalEntity")
-    private Set<Order> orders = new HashSet<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "legalEntity", cascade = CascadeType.ALL)
+    private List<Driver> drivers = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "legalEntity", cascade = CascadeType.ALL)
+    private List<Order> orders = new ArrayList<>();
 }
