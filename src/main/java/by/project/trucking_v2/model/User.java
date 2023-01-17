@@ -19,8 +19,12 @@ public class User{
     @Column(unique = true)
     private String login;
     private String password;
+    @Column(unique = true)
     private String email;
+    @Enumerated(value = EnumType.ORDINAL)
     private Role role;
+    @Enumerated(value = EnumType.STRING)
+    private Status status;
 
     public User(String login, String password, Role role) {
         this.login = login;

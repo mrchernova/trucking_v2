@@ -34,7 +34,8 @@ public class RegistrationController {
         }
 
 
-        user.setRole(Role.getByOrdinal(0));
+//        user.setRole(Role.getByOrdinal(0));
+        user.setRole(Role.ADMINISTRATOR);
 
 
         userRepository.save(user);

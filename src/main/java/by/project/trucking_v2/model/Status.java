@@ -7,6 +7,8 @@ package by.project.trucking_v2.model;
  * IN_PROGRESS      - [orders] выполняется заказ. Данные заносятся в [completed_orders]
  * SUCCESSFUL       - [orders] означает что заказ выполнен. Данные заносятся в [completed_orders]
  * UNDEFINED        - устанавливается в непредвиденных ситуациях
+ * ACTIVE           - [users]
+ * BANNED           - [users]
  */
 public enum Status {
     AVALIABLE,
@@ -14,6 +16,8 @@ public enum Status {
     BUSY,
     IN_PROGRESS,
     SUCCESSFUL,
+    ACTIVE,
+    BANNED,
     UNDEFINED;
 
     public static Status getByOrdinal(int ordinal) {

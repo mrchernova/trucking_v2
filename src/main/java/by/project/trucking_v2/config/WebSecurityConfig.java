@@ -61,7 +61,6 @@
 //                        .password("1")
 //                        .roles("ADMINISTRATOR")
 //                        .build();
-//        System.out.println(user + "*********************************************");
 //        return new InMemoryUserDetailsManager(user);
 //    }
 //
