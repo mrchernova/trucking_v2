@@ -28,15 +28,15 @@ public class RegistrationController {
 
 
         if (userDB != null) {
-            System.out.println("message: User exists! ****************");
+            System.out.println("message: User exists!");
+
             return "registration";
         }
 
-        System.out.println("*****************************************");
-        System.out.println(user);
-        System.out.println(userDB);
-        System.out.println("*****************************************");
-        user.setRole(Role.ADMINISTRATOR);
+
+        user.setRole(Role.getByOrdinal(0));
+
+
         userRepository.save(user);
 
         return "redirect:/login";

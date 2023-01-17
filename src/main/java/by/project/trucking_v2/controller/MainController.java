@@ -12,18 +12,9 @@ public class MainController {
     private UserService userService;
 
     @GetMapping("/")
-    public String greeting(Map<String, Object> model) {
-        return "home";
-    }
-
-
-    @GetMapping("/index")
-    public String getUsers() {
-        userService.getAllUsers();
+    public String index(Map<String, Object> model) {
         return "index";
-
     }
-
 
 
 }

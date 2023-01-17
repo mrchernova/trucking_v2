@@ -3,6 +3,7 @@ package by.project.trucking_v2.controller;
 import by.project.trucking_v2.model.User;
 import by.project.trucking_v2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,10 +24,12 @@ public class UserController {
         return userService.findById(id);
     }
 
+
     @PostMapping
     public User create(@RequestBody User user) {
         return userService.save(user);
     }
+
     @PutMapping("/{id}")
     public User updateUser(@PathVariable Integer id, @RequestBody User user) {
         return userService.update(id, user);
@@ -36,6 +39,13 @@ public class UserController {
     public void deleteUser(@PathVariable Integer id) {
         userService.delete(id);
     }
+
+
+    /*************security********************
+     *  create
+     */
+
+
 }
 
 

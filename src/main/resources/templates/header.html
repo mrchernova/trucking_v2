@@ -2,16 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 
-<form th:action="@{/logout}" method="post">
-  <input type="submit" value="Logout"/>
-</form>
+
 <br>
 <div th:fragment="copy">
-  <a th:href="'/hello'">Say Hello</a> |
-  <a th:href="'/users'">Show all users</a> |
+
+  <a th:href="'/users'">Show users</a> |
+  <a th:href="'/orders'">Show orders</a> |
   <a th:href="'/create'">New user</a>
 
-
+  <form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout"/>
+  </form>
 </div>
 </body>
 </html>
