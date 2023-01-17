@@ -5,37 +5,10 @@
 </head>
 <body>
 REGISTRATION PAGE
-<!--<form th:action="@{/registration}" method="post">-->
-<!--  <div><label> Login : <input type="text" name="login"/> </label></div>-->
-<!--  <div><label> Password: <input type="password" name="password"/> </label></div>-->
-<!--  <div><input type="submit" value="Sign In"/></div>-->
-<!--</form>-->
-
-
-
-
-<br><br>
-<br><br>
-<div th:insert="header :: copy"></div>
-
-<form th:action="@{/registration}" th:object="${user}" th:method="post">
-  <label for="login">Enter login</label>
-  <input id="login" th:field="${login}" type="text"/>
-  <br>
-  <label for="password">Enter password</label>
-  <input id="password" th:field="${password}" type="text"/>
-  <br>
-  <label>Choose role</label>
-  <select name="role">
-    <option th:each="roleOpt : ${T(by.project.trucking_v2.model.Role).CARRIER}"
-            th:value="${roleOpt}" th:text="${roleOpt}"></option>
-    <option th:each="roleOpt : ${T(by.project.trucking_v2.model.Role).CLIENT}"
-            th:value="${roleOpt}" th:text="${roleOpt}"></option>
-  </select>
-
-  <br>
-  <button type="submit">add user</button>
-
+<form th:action="@{/registration}" method="post">
+  <div><label> Login : <input type="text" name="login"/> </label></div>
+  <div><label> Password: <input type="password" name="password"/> </label></div>
+  <div><input type="submit" value="Sign In"/></div>
 </form>
 
 

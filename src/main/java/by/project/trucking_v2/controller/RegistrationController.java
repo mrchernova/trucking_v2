@@ -47,12 +47,12 @@ public class RegistrationController {
     @GetMapping("/create")
     public String createUser(Model model) {         // если используются thymeleaf формы, то надо передавать объект для которого эта форма нужна
         model.addAttribute("user", new User());
-        return "user_create";
+        return "create";
     }
 
     @PostMapping("/create")
     public String createUser(@ModelAttribute("user") User user) {
         userRepository.save(user);
-        return "redirect:/users";
+        return "redirect:/index";
     }
 }
