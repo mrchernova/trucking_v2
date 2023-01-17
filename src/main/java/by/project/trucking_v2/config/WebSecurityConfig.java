@@ -1,5 +1,6 @@
 package by.project.trucking_v2.config;
 
+import by.project.trucking_v2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +12,9 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+
 
 import javax.sql.DataSource;
 
@@ -20,45 +23,57 @@ import static org.springframework.boot.autoconfigure.security.servlet.PathReques
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+//    @Autowired
+//    private DataSource dataSource;
+
     @Autowired
-    private DataSource dataSource;
+    private UserService userService;
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return NoOpPasswordEncoder.getInstance();
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .requestMatchers(toH2Console()).permitAll()
+//                .requestMatchers(toH2Console()).permitAll()
                 .antMatchers("/", "/login", "/registration").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
-//                .defaultSuccessUrl("/swagger-ui/index.html")
-//                .defaultSuccessUrl("/h2-console")
+                .defaultSuccessUrl("/")//Перенарпавление на главную страницу после успешного входа
                 .permitAll()
                 .and()
                 .logout()
-                .permitAll();
+                .permitAll()
+                .logoutSuccessUrl("/");
     }
 
-//    @Bean
+    @Bean
+    @Override
+    public UserDetailsService userDetailsService(){
+        UserDetails user =
+                User.withDefaultPasswordEncoder()
+                        .username("1")
+                        .password("1")
+                        .roles("USER")
+                        .build();
+        return new InMemoryUserDetailsManager(user);
+    }
+
 //    @Override
-//    public UserDetailsService userDetailsService(){
-//        UserDetails user =
-//                User.withDefaultPasswordEncoder()
-//                        .username("1")
-//                        .password("1")
-//                        .roles("USER")
-//                        .build();
-//        return new InMemoryUserDetailsManager(user);
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.jdbcAuthentication()
+//                .dataSource(dataSource)
+//                .passwordEncoder(NoOpPasswordEncoder.getInstance())
+//                .usersByUsernameQuery("SELECT login, password FROM users WHERE login=?")
+//                .authoritiesByUsernameQuery("SELECT login, role FROM users WHERE login=?");
 //    }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication()
-                .dataSource(dataSource)
-                .passwordEncoder(NoOpPasswordEncoder.getInstance())
-                .usersByUsernameQuery("SELECT login, password FROM users WHERE login=?")
-                .authoritiesByUsernameQuery("SELECT login, role FROM users WHERE login=?");
-    }
+
+
 }
+

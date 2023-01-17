@@ -23,15 +23,20 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String addUser(User user, Map<String, Object> model) {
+    public String addUser(User user) {
         User userDB = userRepository.findByLogin(user.getLogin());
 
+
         if (userDB != null) {
-            model.put("message", "User exists!");
+            System.out.println("message: User exists! ****************");
             return "registration";
         }
 
-        user.setRole(Role.getByOrdinal(3));  //!!!!!!!!!!!!!! ENUM 3 UNDERFINED
+        System.out.println("*****************************************");
+        System.out.println(user);
+        System.out.println(userDB);
+        System.out.println("*****************************************");
+        user.setRole(Role.ADMINISTRATOR);
         userRepository.save(user);
 
         return "redirect:/login";

@@ -20,7 +20,7 @@ public class MainController {
     @GetMapping("/index")
     public String getUsers() {
         userService.getAllUsers();
-        return "header";
+        return "index";
 
     }
 
