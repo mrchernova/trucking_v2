@@ -40,7 +40,7 @@ private final UserDetailsService userDetailsService;
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/login", "/registration").permitAll()
-                .antMatchers("/**").permitAll()
+//                .antMatchers("/**").permitAll()
 
 
 //                .antMatchers(HttpMethod.GET, "/users").hasAnyRole(Role.ADMINISTRATOR.name())
@@ -52,7 +52,8 @@ private final UserDetailsService userDetailsService;
                 .antMatchers(HttpMethod.GET, "/orders").hasAuthority(Permission.USERS_READ.getPermission())
 
 */
-                .anyRequest().authenticated()
+//                .anyRequest().authenticated()
+                .anyRequest().permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/auth/login").permitAll()

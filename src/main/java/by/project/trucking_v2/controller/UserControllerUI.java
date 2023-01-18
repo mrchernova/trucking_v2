@@ -1,16 +1,16 @@
-/**
 package by.project.trucking_v2.controller;
 
 import by.project.trucking_v2.model.User;
 import by.project.trucking_v2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/users")
-public class UserController {
+public class UserControllerUI {
     @Autowired
     private UserService userService;
 
@@ -26,9 +26,9 @@ public class UserController {
 
 
     @PostMapping
-//    public User create(@RequestBody User user) {
-    public User create(User user) {
-        return  userService.save(user);
+    public String create(User user) {
+        userService.save(user);
+        return "/index";
     }
 
     @PutMapping("/{id}")
@@ -42,6 +42,6 @@ public class UserController {
     }
 
 }
-*/
+
 
 

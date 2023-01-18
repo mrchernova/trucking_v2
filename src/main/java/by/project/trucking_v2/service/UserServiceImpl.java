@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-    @Transactional
+//    @Transactional
     @Override
     public User save(User user) {
         if (userRepository.findByLogin(user.getLogin()) == null) {
