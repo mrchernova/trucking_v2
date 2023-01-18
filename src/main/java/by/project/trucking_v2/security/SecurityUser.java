@@ -1,6 +1,5 @@
 package by.project.trucking_v2.security;
 
-import by.project.trucking_v2.model.Role;
 import by.project.trucking_v2.model.Status;
 import by.project.trucking_v2.model.User;
 import lombok.Data;
@@ -61,8 +60,8 @@ public class SecurityUser implements UserDetails {
         return isActive;
     }
 
-//проеобразование обычного юзера в юзердитэйлс
-public static UserDetails fromUser(User user){
+    //проеобразование обычного юзера в юзердитэйлс
+    public static UserDetails fromUser(User user) {
         return new org.springframework.security.core.userdetails.User(
                 user.getLogin(), user.getPassword(),
                 user.getStatus().equals(Status.ACTIVE),
@@ -71,7 +70,7 @@ public static UserDetails fromUser(User user){
                 user.getStatus().equals(Status.ACTIVE),
                 user.getRole().getAuthorities()
         );
-}
+    }
 
 
 }

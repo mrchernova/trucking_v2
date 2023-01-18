@@ -3,6 +3,7 @@ package by.project.trucking_v2.service;
 import by.project.trucking_v2.exception.DatabaseException;
 import by.project.trucking_v2.exception.EmptyResultException;
 import by.project.trucking_v2.exception.NotFoundException;
+import by.project.trucking_v2.model.Status;
 import by.project.trucking_v2.model.User;
 import by.project.trucking_v2.repository.UserRepository;
 import net.bytebuddy.implementation.bytecode.Throw;
@@ -10,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -24,11 +25,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-    /**
-     * !!!! security
-     */
-//    @Autowired
-//    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public List<User> getAllUsers() {
         return userRepository.findAllByOrderById();
@@ -44,6 +43,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public User save(User user) {
         if (userRepository.findByLogin(user.getLogin()) == null) {
+            user.setStatus(Status.ACTIVE);                                                                              // security
+            user.setPassword(passwordEncoder.encode(user.getPassword()));                                               // security
             log.info("Пользователь успешно сохранен");
             return userRepository.save(user);
         } else {
@@ -59,9 +60,10 @@ public class UserServiceImpl implements UserService {
     public User update(Integer id, User user) {
         User currentUser = userRepository.findById(id).orElseThrow(() -> new NotFoundException());
         currentUser.setLogin(user.getLogin());
-        currentUser.setPassword(user.getPassword());
+        currentUser.setPassword(passwordEncoder.encode(user.getPassword()));
         currentUser.setEmail(user.getEmail());
         currentUser.setRole(user.getRole());
+        currentUser.setStatus(user.getStatus());
         return userRepository.save(currentUser);
     }
 

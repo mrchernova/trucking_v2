@@ -1,3 +1,4 @@
+
 package by.project.trucking_v2.config;
 
 import by.project.trucking_v2.model.Permission;
@@ -35,22 +36,22 @@ private final UserDetailsService userDetailsService;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .cors().disable()
+                .csrf().disable()
                 .authorizeRequests()
-//                .authorizeHttpRequests()
-//                .requestMatchers("/h2-console/**").permitAll()
-
-
                 .antMatchers("/login", "/registration").permitAll()
+                .antMatchers("/**").permitAll()
+
 
 //                .antMatchers(HttpMethod.GET, "/users").hasAnyRole(Role.ADMINISTRATOR.name())
-                .antMatchers(HttpMethod.GET, "/users/**").hasAuthority(Permission.USERS_READ.getPermission())
+        /*        .antMatchers(HttpMethod.GET, "/users/**").hasAuthority(Permission.USERS_READ.getPermission())
                 .antMatchers(HttpMethod.POST, "/users/**").hasAuthority(Permission.USERS_WRITE.getPermission())
                 .antMatchers(HttpMethod.DELETE, "/users/**").hasAuthority(Permission.USERS_WRITE.getPermission())
 
 //                .antMatchers(HttpMethod.GET, "/orders").hasAnyRole(Role.CLIENT.name())
                 .antMatchers(HttpMethod.GET, "/orders").hasAuthority(Permission.USERS_READ.getPermission())
 
-
+*/
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -62,7 +63,8 @@ private final UserDetailsService userDetailsService;
                 .invalidateHttpSession(true)
                 .clearAuthentication(true)
                 .deleteCookies("JSESSIONID")
-                .logoutSuccessUrl("/auth/login");
+                .logoutSuccessUrl("/auth/login")
+                ;
     }
 
     @Override
@@ -86,4 +88,3 @@ private final UserDetailsService userDetailsService;
     }
 
 }
-//https://www.youtube.com/watch?v=7uxROJ1nduk&ab_channel=EugeneSuleimanov

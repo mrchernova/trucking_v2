@@ -1,4 +1,5 @@
-package by.project.trucking_v2.config;
+/**
+ * package by.project.trucking_v2.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -10,3 +11,4 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/login").setViewName("login");
     }
 }
+*/

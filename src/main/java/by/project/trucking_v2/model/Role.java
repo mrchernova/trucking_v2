@@ -1,21 +1,22 @@
 package by.project.trucking_v2.model;
+/**
+public enum Role {
+    ADMINISTRATOR,
+    CLIENT,
+    CARRIER,
+    UNDEFINED;
 
-//public enum Role {
-//    ADMINISTRATOR,
-//    CLIENT,
-//    CARRIER,
-//    UNDEFINED;
-//
-//
-//    public static Role getByOrdinal(int ordinal) {
-//        Role[] values = Role.values();
-//        if(ordinal >= values.length || ordinal < 0) {
-//            return UNDEFINED;
-//        }
-//        return values[ordinal];
-//    }
-//
-//}
+
+    public static Role getByOrdinal(int ordinal) {
+        Role[] values = Role.values();
+        if(ordinal >= values.length || ordinal < 0) {
+            return UNDEFINED;
+        }
+        return values[ordinal];
+    }
+
+}
+*/
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -37,6 +38,7 @@ public enum Role {
     public Set<Permission> getPermissions() {
         return permissions;
     }
+
 
     public Set<SimpleGrantedAuthority> getAuthorities(){
         return getPermissions().stream()
