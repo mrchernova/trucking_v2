@@ -5,13 +5,14 @@
 </head>
 <body>
 <div th:insert="header :: copy"></div>
-
+<br>
 <div th:if="${param.error}">
   Invalid username and password.
 </div>
 <div th:if="${param.logout}">
   You have been logged out.
 </div>
+<br>
 LOGIN PAGE
 <form th:action="@{/auth/login}" method="post">
 <!-- username!!! NOT login IF UserDetailsService -->
@@ -19,7 +20,8 @@ LOGIN PAGE
   <div><label> Password: <input type="password" name="password"/> </label></div>
   <div><input type="submit" value="Sign In"/></div>
 </form>
-<a th:href="'/registration'">Registration page REGISTRATION</a>
+
+<p><a th:href="'/registration'">Registration page REGISTRATION</a></p>
 
 </body>
 </html>

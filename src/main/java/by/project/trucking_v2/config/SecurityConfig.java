@@ -36,8 +36,11 @@ private final UserDetailsService userDetailsService;
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/login", "/registration").permitAll()
+//                .authorizeHttpRequests()
+//                .requestMatchers("/h2-console/**").permitAll()
 
+
+                .antMatchers("/login", "/registration").permitAll()
 
 //                .antMatchers(HttpMethod.GET, "/users").hasAnyRole(Role.ADMINISTRATOR.name())
                 .antMatchers(HttpMethod.GET, "/users/**").hasAuthority(Permission.USERS_READ.getPermission())
@@ -68,35 +71,16 @@ private final UserDetailsService userDetailsService;
     }
 
 
-//    @Bean
-//    @Override
-//    protected UserDetailsService userDetailsService() {
-//        return new InMemoryUserDetailsManager(
-//                User.builder()
-//                        .username("a")
-//                        .password(passwordEncoder().encode("a"))
-////                        .roles(Role.ADMINISTRATOR.name())
-//                        .authorities(Role.ADMINISTRATOR.getAuthorities())
-//                        .build(),
-//                User.builder()
-//                        .username("c")
-//                        .password(passwordEncoder().encode("c"))
-////                        .roles(Role.CLIENT.name())
-//                        .authorities(Role.CLIENT.getAuthorities())
-//                        .build()
-//        );
-//    }
-
-//    @Bean
-//    protected PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder(12);
-//    }
+    @Bean
+    protected PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(12);
+    }
 
 
     @Bean
     protected DaoAuthenticationProvider daoAuthenticationProvider(){
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-//        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
         daoAuthenticationProvider.setUserDetailsService(userDetailsService);
         return daoAuthenticationProvider;
     }
