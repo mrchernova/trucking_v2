@@ -23,8 +23,8 @@ public class User{
     private String email;
     @Enumerated(value = EnumType.ORDINAL)
     private Role role;
-    @Enumerated(value = EnumType.STRING)
-    private Status status;
+//    @Enumerated(value = EnumType.STRING)
+//    private Status status;
 
     public User(String login, String password, Role role) {
         this.login = login;
@@ -38,6 +38,4 @@ public class User{
     private LegalEntity legalEntity;
 
 
-    public User(String s) {
-    }
 }

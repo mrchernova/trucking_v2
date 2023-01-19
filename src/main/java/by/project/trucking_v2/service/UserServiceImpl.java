@@ -25,8 +25,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
 
     @Override
     public List<User> getAllUsers() {
@@ -43,8 +43,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public User save(User user) {
         if (userRepository.findByLogin(user.getLogin()) == null) {
-            user.setStatus(Status.ACTIVE);                                                                              // security
-            user.setPassword(passwordEncoder.encode(user.getPassword()));                                               // security
+//            user.setStatus(Status.ACTIVE);                                                                              // security
+//            user.setPassword(passwordEncoder.encode(user.getPassword()));                                               // security
             log.info("Пользователь успешно сохранен");
             return userRepository.save(user);
         } else {
@@ -60,10 +60,11 @@ public class UserServiceImpl implements UserService {
     public User update(Integer id, User user) {
         User currentUser = userRepository.findById(id).orElseThrow(() -> new NotFoundException());
         currentUser.setLogin(user.getLogin());
-        currentUser.setPassword(passwordEncoder.encode(user.getPassword()));
+//        currentUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        currentUser.setPassword(user.getPassword());
         currentUser.setEmail(user.getEmail());
         currentUser.setRole(user.getRole());
-        currentUser.setStatus(user.getStatus());
+//        currentUser.setStatus(user.getStatus());
         return userRepository.save(currentUser);
     }
 
