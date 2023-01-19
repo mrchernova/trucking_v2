@@ -1,6 +1,6 @@
+/**
 package by.project.trucking_v2.controller;
 
-import by.project.trucking_v2.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,9 +14,9 @@ import java.util.stream.Collectors;
 @RequestMapping("/auth")
 public class AuthController {
 
- /**   @Autowired
-    ActiveUserService activeUserService;
-*/
+ //   @Autowired
+  //  ActiveUserService activeUserService;
+
     @GetMapping("/login")
     public String getLoginPage(){
         return "login";
@@ -27,13 +27,14 @@ public class AuthController {
         return "success";
     }
 
-  /**  @GetMapping(value = "/user")
-    public ModelAndView AllUserPage(){
+  //  @GetMapping(value = "/user")
+   // public ModelAndView AllUserPage(){
 
-        List<String> allActiveUsers = activeUserService.getAllActiveUsers();
-        Iterable<User> users = allActiveUsers
-                .stream().map(User::new).collect(Collectors.toList());
-        return new ModelAndView("success", "user", users);
-    }
-*/
+      //  List<String> allActiveUsers = activeUserService.getAllActiveUsers();
+     //   Iterable<User> users = allActiveUsers
+    //            .stream().map(User::new).collect(Collectors.toList());
+  //      return new ModelAndView("success", "user", users);
+//    }
+
 }
+*/

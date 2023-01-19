@@ -1,3 +1,4 @@
+/**
 package by.project.trucking_v2.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -35,3 +36,4 @@ public class Transport {
     @OneToMany(mappedBy = "transport")
     private List<CompletedOrder> CompletedOrders = new ArrayList<>();
 }
+ */

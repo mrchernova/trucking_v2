@@ -1,3 +1,4 @@
+/**
 package by.project.trucking_v2.model;
 
 import lombok.AllArgsConstructor;
@@ -31,3 +32,4 @@ public class CompletedOrder {
     @JoinColumn(name = "transport_id")
     private Transport transport;
 }
+*/

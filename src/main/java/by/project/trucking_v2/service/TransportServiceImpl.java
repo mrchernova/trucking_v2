@@ -1,3 +1,4 @@
+/**
 package by.project.trucking_v2.service;
 
 import by.project.trucking_v2.exception.AccessDeniedException;
@@ -44,10 +45,10 @@ public class TransportServiceImpl implements TransportService {
     @Transactional
     @Override
     public Transport save(Transport transport) {
-        /** проверка на наличие юр.лица */
+        // проверка на наличие юр.лица
         if (legalEntityRepository.existsById(transport.getLegalEntity().getId())) {
 
-            /** проверка роли */
+            // проверка роли
             User u = userRepository.findByLegalEntityId(transport.getLegalEntity().getId()); //нах юзера по легал энтити айди
             if (u.getRole() == Role.CARRIER) {
                 log.info("Транспортное средство успешно сохранено");
@@ -87,3 +88,4 @@ public class TransportServiceImpl implements TransportService {
     }
 
 }
+ */

@@ -1,3 +1,4 @@
+/**
 package by.project.trucking_v2.service;
 
 import by.project.trucking_v2.exception.AccessDeniedException;
@@ -45,10 +46,10 @@ public class DriverServiceImpl implements DriverService {
     @Transactional
     @Override
     public Driver save(Driver driver) {
-        /** проверка на наличие юр.лица */
+        // проверка на наличие юр.лица
         if (legalEntityRepository.existsById(driver.getLegalEntity().getId())) {
 
-            /** проверка роли */
+            // проверка роли
             User u = userRepository.findByLegalEntityId(driver.getLegalEntity().getId()); //нах юзера по легал энтити айди
             if (u.getRole() == Role.CARRIER) {
                 log.info("Водитель успешно сохранен");
@@ -85,3 +86,4 @@ public class DriverServiceImpl implements DriverService {
     }
 
 }
+*/

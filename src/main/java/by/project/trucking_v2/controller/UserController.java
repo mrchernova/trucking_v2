@@ -1,4 +1,4 @@
-
+/**
 package by.project.trucking_v2.controller;
 
 import by.project.trucking_v2.model.User;
@@ -44,6 +44,7 @@ public class UserController {
     }
 
 }
+ */
 
 
 

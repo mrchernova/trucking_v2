@@ -1,3 +1,4 @@
+/**
 package by.project.trucking_v2.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -43,3 +44,4 @@ public class LegalEntity {
     @OneToMany(mappedBy = "legalEntity", cascade = CascadeType.ALL)
     private List<Order> orders = new ArrayList<>();
 }
+ */

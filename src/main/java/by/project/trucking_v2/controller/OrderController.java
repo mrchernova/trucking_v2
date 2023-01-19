@@ -1,3 +1,4 @@
+/**
 package by.project.trucking_v2.controller;
 
 import by.project.trucking_v2.model.Order;
@@ -40,13 +41,14 @@ public class OrderController {
 
 
 
-    /**
-     * Обрабатывает событие, когда Перевозчик выберет заказ
-     * Статус заказа изменится на IN_PROGRESS
-     */
+
+//     * Обрабатывает событие, когда Перевозчик выберет заказ
+//     * Статус заказа изменится на IN_PROGRESS
+
     @PutMapping("/deal/{id}")
     public Order orderChoice(@PathVariable Integer id, @RequestBody Order order) {
         return orderService.orderChoice(id, order);
     }
 
 }
+*/

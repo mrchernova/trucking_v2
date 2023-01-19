@@ -1,3 +1,4 @@
+/**
 package by.project.trucking_v2.model;
 
 import lombok.*;
@@ -39,3 +40,4 @@ public class User{
 
 
 }
+*/

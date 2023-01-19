@@ -1,3 +1,4 @@
+/**
 package by.project.trucking_v2.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -34,3 +35,4 @@ public class Order {
     @OneToOne(mappedBy = "order")
     private CompletedOrder completedOrder;
 }
+*/

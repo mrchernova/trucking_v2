@@ -1,3 +1,4 @@
+/**
 package by.project.trucking_v2.service;
 
 import by.project.trucking_v2.model.Transport;
@@ -17,3 +18,4 @@ public interface TransportService {
     void delete(Integer id);
 
 }
+*/
