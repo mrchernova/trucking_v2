@@ -24,15 +24,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /** отвечает за аутентификацию */
-    /**
-     * .dataSource(dataSource) - Источник данных задается этим методом , причем бин dataSource создавать не нужно, достаточно просто внедрить
-     * .withDefaultSchema() - Означает, что схема, где хранятся пользователи, создается автоматически, и в нее добавляются пользователи, указанные далее
-     */
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication().dataSource(dataSource).withDefaultSchema()
-                .withUser(User.withUsername("user").password("password").roles("USER"))
-                .withUser(User.withUsername("admin").password("password").roles("ADMIN"));
+        auth.jdbcAuthentication()
+                .dataSource(dataSource)
+                .usersByUsernameQuery(
+                        "select login, password, 'true' from my_user " +
+                                "where login=?")
+                .authoritiesByUsernameQuery(
+                        "select login, authority from my_user " +
+                                "where login=?");
     }
 
     /** метод отвечает за авторизацию */

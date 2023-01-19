@@ -23,3 +23,6 @@ https://ru.stackoverflow.com/questions/1177697/%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0
 
 что-то поменялось в ветке security2
 
+https://sysout.ru/nastrojka-jdbc-autentifikatsii-v-spring-security/
+https://sysout.ru/sessii-i-remember-me-autentifikatsiya/
+
