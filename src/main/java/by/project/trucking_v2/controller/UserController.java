@@ -1,12 +1,14 @@
-/**
+
 package by.project.trucking_v2.controller;
 
 import by.project.trucking_v2.model.User;
 import by.project.trucking_v2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/users")
@@ -42,6 +44,6 @@ public class UserController {
     }
 
 }
-*/
+
 
 

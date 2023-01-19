@@ -38,5 +38,6 @@ public class User{
     private LegalEntity legalEntity;
 
 
-
+    public User(String s) {
+    }
 }
