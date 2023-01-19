@@ -1,5 +1,7 @@
 package by.project.trucking_v2.security;
 
+
+import by.project.trucking_v2.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -9,12 +11,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.sql.DataSource;
-
 @EnableWebSecurity(debug = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    private DataSource dataSource;
+    private CustomUserDetailsService userDetailsService;
+
+    @Autowired
+    private CustomAuthencationProvider customAuthencationProvider;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -24,14 +27,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication()
-                .dataSource(dataSource)
-                .usersByUsernameQuery(
-                        "select login, password, 'true' from my_user " +
-                                "where login=?")
-                .authoritiesByUsernameQuery(
-                        "select login, authority from my_user " +
-                                "where login=?");
+        auth.userDetailsService(userDetailsService);
+        //  auth.authenticationProvider(customAuthencationProvider);
     }
 
     @Override
