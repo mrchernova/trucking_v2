@@ -15,12 +15,16 @@ public class HelloController {
 
     @GetMapping("/user")
     public String user(Authentication authentication) {
+        System.out.println("это я вывожу из HelloController");
         System.out.println((UserDetails)authentication.getPrincipal());
         return "User";
     }
 
     @GetMapping("/admin")
-    public String admin() {
+
+    public String admin(Authentication authentication) {  // Authentication authentication ??
+        System.out.println("это я вывожу из HelloController");
+        System.out.println((UserDetails)authentication.getPrincipal());
         return "Admin";
     }
 
