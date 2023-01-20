@@ -1,5 +1,6 @@
 package by.project.trucking_v2;
 
+import by.project.trucking_v2.model.Role;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

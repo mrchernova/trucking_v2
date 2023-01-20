@@ -1,4 +1,3 @@
-/**
 package by.project.trucking_v2.service;
 
 import by.project.trucking_v2.exception.AccessDeniedException;
@@ -86,4 +85,3 @@ public class DriverServiceImpl implements DriverService {
     }
 
 }
-*/

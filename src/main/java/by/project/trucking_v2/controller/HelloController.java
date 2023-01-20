@@ -22,7 +22,7 @@ public class HelloController {
 
     @GetMapping("/admin")
 
-    public String admin(Authentication authentication) {  // Authentication authentication ??
+    public String admin(Authentication authentication) {
         System.out.println("это я вывожу из HelloController");
         System.out.println((UserDetails)authentication.getPrincipal());
         return "Admin";

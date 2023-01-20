@@ -1,4 +1,3 @@
-/**
 package by.project.trucking_v2.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -37,4 +36,3 @@ public class Driver {
     private List<CompletedOrder> CompletedOrders = new ArrayList<>();
 
 }
-*/

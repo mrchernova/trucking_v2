@@ -1,4 +1,4 @@
-/**
+
 package by.project.trucking_v2.repository;
 
 import by.project.trucking_v2.model.User;
@@ -15,4 +15,3 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     User findByLegalEntityId(Integer id);
 
 }
-*/

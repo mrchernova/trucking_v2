@@ -1,4 +1,3 @@
-/**
 package by.project.trucking_v2.service;
 
 import by.project.trucking_v2.model.LegalEntity;
@@ -14,4 +13,3 @@ public interface LegalEntityService {
     LegalEntity update(Integer id, LegalEntity legalEntity);
 
 }
-*/

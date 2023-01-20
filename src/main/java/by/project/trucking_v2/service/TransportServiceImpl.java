@@ -1,4 +1,3 @@
-/**
 package by.project.trucking_v2.service;
 
 import by.project.trucking_v2.exception.AccessDeniedException;
@@ -88,4 +87,3 @@ public class TransportServiceImpl implements TransportService {
     }
 
 }
- */

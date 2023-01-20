@@ -1,4 +1,3 @@
-/**
 package by.project.trucking_v2.service;
 
 import by.project.trucking_v2.exception.NotFoundException;
@@ -39,4 +38,3 @@ public class LegalEntityServiceImpl implements LegalEntityService {
     }
 
 }
- */

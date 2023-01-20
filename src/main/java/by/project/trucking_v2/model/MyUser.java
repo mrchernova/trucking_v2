@@ -17,7 +17,6 @@ public class MyUser {
     long id;
     private String login;
     private String password;
-//    private String position;
     private String role;
 
 

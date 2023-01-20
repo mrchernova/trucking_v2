@@ -1,4 +1,3 @@
-/**
 package by.project.trucking_v2.service;
 
 import by.project.trucking_v2.exception.DatabaseException;
@@ -82,4 +81,3 @@ public class UserServiceImpl implements UserService {
     }
 
 }
- */

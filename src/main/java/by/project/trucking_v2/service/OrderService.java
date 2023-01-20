@@ -1,4 +1,3 @@
-/**
 package by.project.trucking_v2.service;
 
 import by.project.trucking_v2.model.Order;
@@ -21,4 +20,3 @@ public interface OrderService {
     Order orderChoice(Integer id, Order order);
 
 }
-*/

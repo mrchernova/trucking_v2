@@ -1,4 +1,3 @@
-/**
 package by.project.trucking_v2.service;
 
 import by.project.trucking_v2.model.Driver;
@@ -19,4 +18,3 @@ public interface DriverService {
     void delete(Integer id);
 
 }
-*/

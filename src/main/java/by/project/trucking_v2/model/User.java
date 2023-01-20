@@ -1,4 +1,4 @@
-/**
+
 package by.project.trucking_v2.model;
 
 import lombok.*;
@@ -22,7 +22,7 @@ public class User{
     private String password;
     @Column(unique = true)
     private String email;
-    @Enumerated(value = EnumType.ORDINAL)
+    @Enumerated(value = EnumType.STRING)
     private Role role;
 //    @Enumerated(value = EnumType.STRING)
 //    private Status status;
@@ -40,4 +40,3 @@ public class User{
 
 
 }
-*/

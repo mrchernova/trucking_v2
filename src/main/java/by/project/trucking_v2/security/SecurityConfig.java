@@ -1,6 +1,8 @@
 package by.project.trucking_v2.security;
 
 
+import by.project.trucking_v2.model.Role;
+import by.project.trucking_v2.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -16,7 +18,8 @@ import javax.sql.DataSource;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private DataSource dataSource;
+    private CustomUserDetailsService customUserDetailsService;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
@@ -25,22 +28,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     /** отвечает за аутентификацию */
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication()
-                .dataSource(dataSource)
-                .usersByUsernameQuery(
-                        "select login, password, 'true' from my_user " +
-                                "where login=?")
-                .authoritiesByUsernameQuery(
-                        "select login, authority from my_user " +
-                                "where login=?");
+        auth.userDetailsService(customUserDetailsService);
     }
+
+
 
     /** метод отвечает за авторизацию */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/admin/**").hasRole("ADMIN")
+//                .antMatchers(HttpMethod.POST, "/api/user").permitAll()
+                .antMatchers("/admin/**").hasRole("ADMINISTRATOR")
+                .antMatchers("/orders").hasRole("CARRIER")
+                .antMatchers("/orders/**").hasAnyRole("CLIENT", "ADMINISTRATOR")
                 .antMatchers("/**").permitAll()
                 .and().formLogin();
 
