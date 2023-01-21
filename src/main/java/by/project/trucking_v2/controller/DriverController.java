@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/driver")
+@RequestMapping("/drivers")
 public class DriverController {
     @Autowired
     private DriverService driverService;

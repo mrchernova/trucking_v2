@@ -23,7 +23,6 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .password(myUser.getPassword())
                 .roles(String.valueOf(myUser.getRole())) //допустим...
                 .build();
-        System.out.println("*****************" + String.valueOf(myUser.getRole()) + "**********************************");
         return user;
     }
 }
