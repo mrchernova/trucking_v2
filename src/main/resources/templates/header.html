@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="copy">
+
+    <a th:href="'/users'">Все пользователи</a> |
+    <a th:href="'/orders'">Все заказы</a> |
+    <a th:href="'/drivers'">Все водители</a> |
+    <a th:href="'/transport'">Весь транспорт</a> |
+    <a th:href="'/completedorder'">Архив заказов</a> |
+    <span th:if="${login == 'anonymousUser'}"><a href="/login">Войти</a> | </span>
+    <span th:if="${login == 'anonymousUser'}"><a href="/users/create">Регистрация</a></span>
+    <a th:href="'/username'"><span th:if="${login != 'anonymousUser'}" th:text='${login}'> </span></a>
+    <span th:if="${login != 'anonymousUser'}"><a href="/logout">Выйти</a></span>
+
+</div>
+
+</body>
+</html>

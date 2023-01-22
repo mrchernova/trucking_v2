@@ -42,10 +42,10 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     @Override
     public Order save(Order order) {
-        /** проверка на наличие юр.лица */
+        // проверка на наличие юр.лица
         if (legalEntityRepository.existsById(order.getLegalEntity().getId())) {
 
-            /** проверка роли */
+            // проверка роли
             User u = userRepository.findByLegalEntityId(order.getLegalEntity().getId()); //нах юзера по легал энтити айди
             if (u.getRole() == Role.CLIENT) {
                 log.info("Заказ успешно сохранен");

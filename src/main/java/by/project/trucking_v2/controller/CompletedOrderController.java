@@ -26,7 +26,4 @@ public class CompletedOrderController {
         return completedOrderService.findById(id);
     }
 
-
-
-
 }

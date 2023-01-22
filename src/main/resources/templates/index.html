@@ -1,11 +1,31 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <title>Getting Started: Serving Web Content</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 <div th:insert="header :: copy"></div>
-<p th:text="'Hello!'" />
+
+<table>
+    <tr><td colspan="2">Роль Администратор</td></tr>
+    <tr><td>логин:</td><td>1</td></tr>
+    <tr><td>пароль:</td><td>1</td></tr>
+</table>
+<table>
+    <tr><td colspan="2">Роль Заказчик</td></tr>
+    <tr><td>логин:</td><td>2</td></tr>
+    <tr><td>пароль:</td><td>2</td></tr>
+</table>
+<table>
+    <tr><td colspan="2">Роль Перевозчик</td></tr>
+    <tr><td>логин:</td><td>3</td></tr>
+    <tr><td>пароль:</td><td>3</td></tr>
+</table>
+
+<br>
+
+<div sec:authorize="isAuthenticated()">Authenticated as <span sec:authentication="name"></span></div>
+
 </body>
 </html>

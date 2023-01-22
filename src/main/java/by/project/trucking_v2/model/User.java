@@ -1,7 +1,7 @@
+
 package by.project.trucking_v2.model;
 
 import lombok.*;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.persistence.*;
 
@@ -19,7 +19,9 @@ public class User{
     @Column(unique = true)
     private String login;
     private String password;
+    @Column(unique = true)
     private String email;
+    @Enumerated(value = EnumType.STRING)
     private Role role;
 
     public User(String login, String password, Role role) {
@@ -32,7 +34,6 @@ public class User{
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "le_id")
     private LegalEntity legalEntity;
-
 
 
 }

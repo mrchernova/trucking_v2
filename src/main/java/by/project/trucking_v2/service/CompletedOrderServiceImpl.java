@@ -40,18 +40,18 @@ public class CompletedOrderServiceImpl implements CompletedOrderService {
     }
 
 
-    /**
-     * Вызывается после выбора Заказа Перевозчиком
-     * Перевозчик сам определяет какого Водителя и какую Машину назначить для выполнения заказа
-     * следовательно передает driver_id и transport_id
-     */
+
+//     * Вызывается после выбора Заказа Перевозчиком
+//     * Перевозчик сам определяет какого Водителя и какую Машину назначить для выполнения заказа
+//     * следовательно передает driver_id и transport_id
+
     @Override
     public CompletedOrder orderInProgress(Integer orderId) {
         log.info("находим нужный заказ");
         Order currentOrder = orderRepository.findById(orderId).orElseThrow(NotFoundException::new);
 
         log.info("назначается водитель и транспорт для выполнения заказа");
-        /*это будет передаваться* через форму*/
+//        это будет передаваться* через форму
         int id_driver = 1;
         int id_transport = 1;
 

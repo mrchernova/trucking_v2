@@ -5,11 +5,9 @@ import by.project.trucking_v2.exception.EmptyResultException;
 import by.project.trucking_v2.exception.NotFoundException;
 import by.project.trucking_v2.model.User;
 import by.project.trucking_v2.repository.UserRepository;
-import net.bytebuddy.implementation.bytecode.Throw;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -21,7 +19,7 @@ public class UserServiceImpl implements UserService {
     private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
 
     @Override
@@ -34,18 +32,21 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(id).orElseThrow(() -> new NotFoundException());
         return user;
     }
-    @Transactional
+
+//    @Transactional
     @Override
     public User save(User user) {
-        if (userRepository.findByLogin(user.getLogin()) == null){
+        if (userRepository.findByLogin(user.getLogin()) == null) {
             log.info("Пользователь успешно сохранен");
             return userRepository.save(user);
-        }else{
+        } else {
             log.warn("Пользователь НЕ сохранен. Логин '" + user.getLogin() + "' уже существует");
             throw new DatabaseException();
         }
 
     }
+
+
     @Transactional
     @Override
     public User update(Integer id, User user) {
@@ -56,6 +57,7 @@ public class UserServiceImpl implements UserService {
         currentUser.setRole(user.getRole());
         return userRepository.save(currentUser);
     }
+
     @Transactional
     @Override
     public void delete(Integer id) {

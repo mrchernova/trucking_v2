@@ -1,3 +1,4 @@
+
 package by.project.trucking_v2.repository;
 
 import by.project.trucking_v2.model.CompletedOrder;
