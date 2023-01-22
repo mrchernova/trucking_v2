@@ -1,16 +1,11 @@
 package by.project.trucking_v2.model;
 
 public enum Role {
-    ADMINISTRATOR("Администратор"),
-    CLIENT("Заказчик"),
-    CARRIER("Перевозчик"),
-    UNDEFINED("Неизвестно");
+    ADMINISTRATOR,
+    CLIENT,
+    CARRIER,
+    UNDEFINED;
 
-    String roleName;
-
-    Role(String roleName) {
-        this.roleName = roleName;
-    }
 
     public static Role getByOrdinal(int ordinal) {
         Role[] values = Role.values();

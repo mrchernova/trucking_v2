@@ -2,7 +2,6 @@
 package by.project.trucking_v2.model;
 
 import lombok.*;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.persistence.*;
 
@@ -24,8 +23,6 @@ public class User{
     private String email;
     @Enumerated(value = EnumType.STRING)
     private Role role;
-//    @Enumerated(value = EnumType.STRING)
-//    private Status status;
 
     public User(String login, String password, Role role) {
         this.login = login;

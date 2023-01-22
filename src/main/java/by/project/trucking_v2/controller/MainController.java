@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Controller
-public class HelloController {
+public class MainController {
     @Autowired
     UserService userService;
 
