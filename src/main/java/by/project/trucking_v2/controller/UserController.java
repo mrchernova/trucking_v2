@@ -1,7 +1,6 @@
 package by.project.trucking_v2.controller;
 
 import by.project.trucking_v2.model.User;
-import by.project.trucking_v2.repository.UserRepository;
 import by.project.trucking_v2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,8 +13,6 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
-    @Autowired
-    private UserRepository userRepository;
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping
@@ -34,24 +31,17 @@ public class UserController {
         return  userService.save(user);
     }
 
-    @PreAuthorize("hasRole('ADMINISTRATOR') or principal.username == #user.login")
+    @PreAuthorize("hasRole('ADMINISTRATOR') or authentication.principal.login.equals(#user.login)")
     @PutMapping("/{id}")
     public User updateUser(@PathVariable Integer id, @RequestBody User user) {
         return userService.update(id, user);
     }
 
-//    @PreAuthorize("isFullyAuthenticated().")
+    @PreAuthorize("hasRole('ADMINISTRATOR') or authentication.principal.id.equals(#id)")
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Integer id) {
-        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-        System.out.println(userRepository.findById(id).get().getLogin());
-        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-//        userService.delete(id);
+        userService.delete(id);
     }
 
 }
-
-
 
