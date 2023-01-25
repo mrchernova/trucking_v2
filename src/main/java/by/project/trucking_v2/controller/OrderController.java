@@ -30,13 +30,13 @@ public class OrderController {
         return orderService.save(order);
     }
 
-    @PreAuthorize("hasAnyRole('CLIENT', 'ADMINISTRATOR')")
+    @PreAuthorize("hasAnyAuthority('CLIENT', 'ADMINISTRATOR')")
     @PutMapping("/{id}")
     public Order update(@PathVariable Integer id, @RequestBody Order order) {
         return orderService.update(id, order);
     }
 
-    @PreAuthorize("hasAnyRole('CLIENT', 'ADMINISTRATOR')")
+    @PreAuthorize("hasAnyAuthority('CLIENT', 'ADMINISTRATOR')")
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id) {
         orderService.delete(id);
@@ -45,7 +45,7 @@ public class OrderController {
 
     //     * Обрабатывает событие, когда Перевозчик выберет заказ
 //     * Статус заказа изменится на IN_PROGRESS
-    @PreAuthorize("hasRole('CARRIER')")
+    @PreAuthorize("hasAuthority('CARRIER')")
     @PutMapping("/deal/{id}")
     public Order orderChoice(@PathVariable Integer id, @RequestBody Order order) {
         return orderService.orderChoice(id, order);

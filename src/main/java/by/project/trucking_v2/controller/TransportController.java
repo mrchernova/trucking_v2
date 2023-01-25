@@ -24,19 +24,19 @@ public class TransportController {
         return transportService.findById(id);
     }
 
-    @PreAuthorize("hasRole('CARRIER')")
+    @PreAuthorize("hasAuthority('CARRIER')")
     @PostMapping
     public Transport create(@RequestBody Transport transport) {
         return transportService.save(transport);
     }
 
-    @PreAuthorize("hasAnyRole('CARRIER', 'ADMINISTRATOR')")
+    @PreAuthorize("hasAnyAuthority('CARRIER', 'ADMINISTRATOR')")
     @PutMapping("/{id}")
     public Transport update(@PathVariable Integer id, @RequestBody Transport transport) {
         return transportService.update(id, transport);
     }
 
-    @PreAuthorize("hasAnyRole('CARRIER', 'ADMINISTRATOR')")
+    @PreAuthorize("hasAnyAuthority('CARRIER', 'ADMINISTRATOR')")
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id) {
         transportService.delete(id);
