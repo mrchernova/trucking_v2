@@ -8,6 +8,8 @@ import by.project.trucking_v2.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -20,7 +22,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
-
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public List<User> getAllUsers() {
@@ -38,6 +41,7 @@ public class UserServiceImpl implements UserService {
     public User save(User user) {
         if (userRepository.findByLogin(user.getLogin()) == null) {
             log.info("Пользователь успешно сохранен");
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             return userRepository.save(user);
         } else {
             log.warn("Пользователь НЕ сохранен. Логин '" + user.getLogin() + "' уже существует");
@@ -52,7 +56,7 @@ public class UserServiceImpl implements UserService {
     public User update(Integer id, User user) {
         User currentUser = userRepository.findById(id).orElseThrow(() -> new NotFoundException());
         currentUser.setLogin(user.getLogin());
-        currentUser.setPassword(user.getPassword());
+        currentUser.setPassword(passwordEncoder.encode(user.getPassword()));
         currentUser.setEmail(user.getEmail());
         currentUser.setRole(user.getRole());
         return userRepository.save(currentUser);

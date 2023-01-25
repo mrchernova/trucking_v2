@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 
 @Controller
 public class MainController {
@@ -22,6 +24,13 @@ public class MainController {
         String login = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("login", login);
         return "index";
+    }
+
+
+
+    @GetMapping("/login")
+    public String getLoginPage(){
+        return "login";
     }
 
     @GetMapping("/users/create")

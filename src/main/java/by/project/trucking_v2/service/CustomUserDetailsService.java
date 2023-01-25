@@ -1,6 +1,8 @@
 package by.project.trucking_v2.service;
 
+import by.project.trucking_v2.model.User;
 import by.project.trucking_v2.repository.UserRepository;
+import by.project.trucking_v2.security.MyCustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,16 +16,17 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        by.project.trucking_v2.model.User myUser = userRepository.findByLogin(login);
+        User myUser = userRepository.findByLogin(login);
         if (myUser == null) {
             throw new UsernameNotFoundException("Unknown user: " + login);
         }
-        UserDetails user = org.springframework.security.core.userdetails.User.builder()
-                .username(myUser.getLogin())
+        MyCustomUserDetails ud = MyCustomUserDetails.builder()
+                .id(myUser.getId())
+                .login(myUser.getLogin())
                 .password(myUser.getPassword())
-                .roles(String.valueOf(myUser.getRole()))
+                .role(myUser.getRole().name())
                 .build();
-        return user;
+        return ud;
     }
 }
 

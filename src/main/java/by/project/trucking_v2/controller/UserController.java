@@ -3,8 +3,8 @@ package by.project.trucking_v2.controller;
 import by.project.trucking_v2.model.User;
 import by.project.trucking_v2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -13,35 +13,33 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
-
+    @PreAuthorize("hasRole('ADMINISTRATOR')")
     @GetMapping
     public List<User> getUsers() {
         return userService.getAllUsers();
     }
-
+    @PreAuthorize("hasRole('ADMINISTRATOR') or authentication.principal.id.equals(#id)")
     @GetMapping("/{id}")
     public User getUserById(@PathVariable Integer id) {
         return userService.findById(id);
     }
 
-
     @PostMapping
-//    public User create(@RequestBody User user) {
     public User create(User user) {
         return  userService.save(user);
     }
 
+    @PreAuthorize("hasRole('ADMINISTRATOR') or authentication.principal.login.equals(#user.login)")
     @PutMapping("/{id}")
     public User updateUser(@PathVariable Integer id, @RequestBody User user) {
         return userService.update(id, user);
     }
 
+    @PreAuthorize("hasRole('ADMINISTRATOR') or authentication.principal.id.equals(#id)")
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Integer id) {
         userService.delete(id);
     }
 
 }
-
-
 
