@@ -13,14 +13,12 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
-
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ADMINISTRATOR')")
     @GetMapping
     public List<User> getUsers() {
         return userService.getAllUsers();
     }
-
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ADMINISTRATOR') or authentication.principal.id.equals(#id)")
     @GetMapping("/{id}")
     public User getUserById(@PathVariable Integer id) {
         return userService.findById(id);

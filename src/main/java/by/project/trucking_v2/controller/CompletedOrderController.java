@@ -14,13 +14,11 @@ public class CompletedOrderController {
     @Autowired
     private CompletedOrderService completedOrderService;
 
-    @PreAuthorize("isAuthenticated()")
     @GetMapping
     public List<CompletedOrder> getAll() {
         return completedOrderService.getAll();
     }
 
-    @PreAuthorize("isAuthenticated()")
     @GetMapping("/{id}")
     public CompletedOrder getById(@PathVariable Integer id) {
         return completedOrderService.findById(id);

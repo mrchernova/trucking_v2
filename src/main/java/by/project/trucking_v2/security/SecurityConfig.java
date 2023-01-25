@@ -4,6 +4,7 @@ package by.project.trucking_v2.security;
 import by.project.trucking_v2.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,7 +19,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private CustomUserDetailsService customUserDetailsService;
 
     @Bean
-    protected PasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(12);
     }
 
@@ -38,7 +39,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()     //POSTMAN
                 .cors().disable()
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
+                .antMatchers("/", "/users/create").permitAll()
+                .antMatchers("/**").authenticated()
                 .and()
                 .headers().frameOptions().sameOrigin()
                 .and().formLogin()

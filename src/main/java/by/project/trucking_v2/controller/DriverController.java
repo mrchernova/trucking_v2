@@ -14,13 +14,11 @@ public class DriverController {
     @Autowired
     private DriverService driverService;
 
-    @PreAuthorize("isAuthenticated()")
     @GetMapping
     public List<Driver> getAll() {
         return driverService.getAll();
     }
 
-    @PreAuthorize("isAuthenticated()")
     @GetMapping("/{id}")
     public Driver getById(@PathVariable("id") Integer id) {
         return driverService.findById(id);

@@ -14,13 +14,11 @@ public class TransportController {
     @Autowired
     private TransportService transportService;
 
-    @PreAuthorize("isAuthenticated()")
     @GetMapping
     public List<Transport> getAll() {
         return transportService.getAll();
     }
 
-    @PreAuthorize("isAuthenticated()")
     @GetMapping("/{id}")
     public Transport getById(@PathVariable Integer id) {
         return transportService.findById(id);
