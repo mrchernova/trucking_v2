@@ -2,6 +2,7 @@
 package by.project.trucking_v2.model;
 
 import lombok.*;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 
@@ -16,8 +17,10 @@ public class User{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
+    @NotEmpty(message = "Поле логина не может быть пустым")
     @Column(unique = true)
     private String login;
+    @NotEmpty(message = "Поле пароля не может быть пустым")
     private String password;
     @Column(unique = true)
     private String email;

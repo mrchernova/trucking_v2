@@ -7,9 +7,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
+import javax.validation.Valid;
 
 
 @Controller
@@ -27,9 +28,8 @@ public class MainController {
     }
 
 
-
     @GetMapping("/login")
-    public String getLoginPage(){
+    public String getLoginPage() {
         return "login";
     }
 
@@ -40,10 +40,16 @@ public class MainController {
     }
 
     @PostMapping("/users/create")
-    public String createUser(@ModelAttribute("user") User user) {
-        userService.save(user);
-        //!Потом     вместо /login - ссылка на продолжение регистрации, где нужно будет ввести эл почту, название организации, УНП и телефон
-        return "redirect:/login";
+    public String createUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            System.out.println("не норм");
+            return "/user_create";
+        } else {
+            userService.save(user);
+            System.out.println("норм");
+            return "/user_profile";
+//            return "redirect:/users/"+user.getId();
+        }
     }
 
     @RequestMapping(value = "/username", method = RequestMethod.GET)

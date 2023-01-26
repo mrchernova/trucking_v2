@@ -3,6 +3,8 @@ package by.project.trucking_v2.service;
 import by.project.trucking_v2.exception.DatabaseException;
 import by.project.trucking_v2.exception.EmptyResultException;
 import by.project.trucking_v2.exception.NotFoundException;
+import by.project.trucking_v2.model.Contact;
+import by.project.trucking_v2.model.LegalEntity;
 import by.project.trucking_v2.model.User;
 import by.project.trucking_v2.repository.UserRepository;
 import org.slf4j.Logger;
@@ -39,9 +41,14 @@ public class UserServiceImpl implements UserService {
 //    @Transactional
     @Override
     public User save(User user) {
-        if (userRepository.findByLogin(user.getLogin()) == null) {
+        if (userRepository.findByLogin(user.getLogin()) == null){
             log.info("Пользователь успешно сохранен");
             user.setPassword(passwordEncoder.encode(user.getPassword()));
+//            user.setLegalEntity(new LegalEntity("new title", Contact.builder()
+//                    .unp(12345)
+//                    .phone("9379992")
+//                    .build();
+//            );
             return userRepository.save(user);
         } else {
             log.warn("Пользователь НЕ сохранен. Логин '" + user.getLogin() + "' уже существует");
