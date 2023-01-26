@@ -6,6 +6,7 @@ import by.project.trucking_v2.exception.NotFoundException;
 import by.project.trucking_v2.model.Contact;
 import by.project.trucking_v2.model.LegalEntity;
 import by.project.trucking_v2.model.User;
+import by.project.trucking_v2.repository.LegalEntityRepository;
 import by.project.trucking_v2.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +25,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private LegalEntityRepository legalEntityRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -38,17 +42,12 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-//    @Transactional
+    //    @Transactional
     @Override
     public User save(User user) {
-        if (userRepository.findByLogin(user.getLogin()) == null){
+        if (userRepository.findByLogin(user.getLogin()) == null) {
             log.info("Пользователь успешно сохранен");
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-//            user.setLegalEntity(new LegalEntity("new title", Contact.builder()
-//                    .unp(12345)
-//                    .phone("9379992")
-//                    .build();
-//            );
             return userRepository.save(user);
         } else {
             log.warn("Пользователь НЕ сохранен. Логин '" + user.getLogin() + "' уже существует");
@@ -60,13 +59,18 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public User update(Integer id, User user) {
+    public User update(Integer id, User user, LegalEntity legalEntity) {
         User currentUser = userRepository.findById(id).orElseThrow(() -> new NotFoundException());
-        currentUser.setLogin(user.getLogin());
-        currentUser.setPassword(passwordEncoder.encode(user.getPassword()));
         currentUser.setEmail(user.getEmail());
-        currentUser.setRole(user.getRole());
+
+        // типа в le что-то передается
+        legalEntity.setTitle("какое-то название");
+        legalEntity.setContact(Contact.builder().unp(12345).phone("9379992").build());
+        legalEntityRepository.save(legalEntity);
+
+        currentUser.setLegalEntity(legalEntity);
         return userRepository.save(currentUser);
+        /** КАК БЫ РАБОТАЕТ НО НАДО ТЕСТИТЬ ************************************************************************************** */
     }
 
     @Transactional

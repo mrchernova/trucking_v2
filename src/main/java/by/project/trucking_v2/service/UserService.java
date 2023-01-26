@@ -1,5 +1,6 @@
 package by.project.trucking_v2.service;
 
+import by.project.trucking_v2.model.LegalEntity;
 import by.project.trucking_v2.model.User;
 
 import java.util.List;
@@ -10,7 +11,7 @@ public interface UserService {
     User findById(Integer id);
 
     User save(User user);
-    User update(Integer id, User user);
+    User update(Integer id, User user, LegalEntity legalEntity);
     void delete(Integer id);
 
 }
