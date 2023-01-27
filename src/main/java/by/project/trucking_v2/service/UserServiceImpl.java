@@ -5,6 +5,7 @@ import by.project.trucking_v2.exception.EmptyResultException;
 import by.project.trucking_v2.exception.NotFoundException;
 import by.project.trucking_v2.model.Contact;
 import by.project.trucking_v2.model.LegalEntity;
+import by.project.trucking_v2.model.Status;
 import by.project.trucking_v2.model.User;
 import by.project.trucking_v2.repository.LegalEntityRepository;
 import by.project.trucking_v2.repository.UserRepository;
@@ -47,6 +48,7 @@ public class UserServiceImpl implements UserService {
     public User save(User user) {
         if (userRepository.findByLogin(user.getLogin()) == null) {
             log.info("Пользователь успешно сохранен");
+            user.setStatus(Status.ACTIVE);
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             return userRepository.save(user);
         } else {
@@ -61,16 +63,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User update(Integer id, User user, LegalEntity legalEntity) {
         User currentUser = userRepository.findById(id).orElseThrow(() -> new NotFoundException());
-        currentUser.setEmail(user.getEmail());
-        // типа в le что-то передается
-//        legalEntity.setTitle("какое-то название");
-//        legalEntity.setTitle(legalEntity.getTitle());
-        legalEntity.setContact(Contact.builder().unp(12345).phone("9379992").build());
-        legalEntityRepository.save(legalEntity);
 
+        currentUser.setEmail(user.getEmail());
         currentUser.setLegalEntity(legalEntity);
+
         return userRepository.save(currentUser);
-        /** КАК БЫ РАБОТАЕТ НО НАДО ТЕСТИТЬ ************************************************************************************** */
     }
 
     @Transactional

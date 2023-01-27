@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Builder
 public class Contact implements Serializable {
 
-    private Integer unp;
+    private String unp;
     private String phone;
 
     @Override

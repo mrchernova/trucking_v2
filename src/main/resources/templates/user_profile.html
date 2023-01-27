@@ -3,23 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <title>Create user</title>
-
 </head>
 <body>
 
 <form th:action="@{/users/{id}(id=${user.getId()})}" th:method="post">
-    <input type="hidden" name="_method" value="PUT" />
 
-    <label for="email">Электронная почта</label>
-    <p><input id="login" type="text" th:field="*{user.login}" disabled/></p>
-    <p><input id="email" type="text" th:field="*{user.email}"/></p>
+    <input type="hidden" name="_method" value="PUT"/>
+    <input id="login" type="text" th:field="*{user.login}" disabled/>
+    <br><br>
 
-    <p><input id="title" type="text" th:field="*{user.legalEntity.title}"/></p>
+    <label for="email">Электронная почта</label><br>
+    <input id="email" type="email" th:field="*{user.email}"
+           pattern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})"
+           required/>
+    <br><br>
+    <label for="title">Название организации</label><br>
+    <input id="title" type="text" th:field="*{legalEntity.title}" required/>
+    <br><br>
+    <label for="unp">УНП/ИНН</label><br>
+    <input id="unp" type="text" th:field="*{legalEntity.Contact.unp}"
+           pattern="[A-Za-z0-9]{9,12}"
+           title="от 9 до 12 цифр и букв"
+           required/>
+    <br><br>
+    <label for="phone">Телефон</label><br>
+    <input id="phone"
+           type="tel" th:field="*{legalEntity.Contact.phone}"
+           placeholder="+375 (__) ___-__-__"
+           pattern="^\+375(\s+)?\(?(17|25|29|33|44)\)?(\s+)?[0-9]{3}-?[0-9]{2}-?[0-9]{2}$"
+           title="Формат ввода: +375 (__) ___-__-__"
+           required/>
 
 
-    <p><button type="submit">Сохранить</button></p>
-
+    <br><br>
+        <button type="submit">Сохранить</button>
 </form>
 
+
+<script>
+    window.onload = function () {
+        MaskedInput({
+            elm: document.getElementById('phone'),
+            format: '+375 (__) ___-__-__',
+            separator: '+375 ()-'
+        });
+    }
+</script>
 </body>
 </html>

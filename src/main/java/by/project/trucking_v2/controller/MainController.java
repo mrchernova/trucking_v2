@@ -41,7 +41,7 @@ public class MainController {
     }
 
     @PostMapping("/users/create")
-    public String createUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+    public String createUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, LegalEntity legalEntity) {
         if (bindingResult.hasErrors()) {
             return "/user_create";
         } else {
