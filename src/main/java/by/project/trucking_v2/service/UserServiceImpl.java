@@ -62,9 +62,9 @@ public class UserServiceImpl implements UserService {
     public User update(Integer id, User user, LegalEntity legalEntity) {
         User currentUser = userRepository.findById(id).orElseThrow(() -> new NotFoundException());
         currentUser.setEmail(user.getEmail());
-
         // типа в le что-то передается
-        legalEntity.setTitle("какое-то название");
+//        legalEntity.setTitle("какое-то название");
+//        legalEntity.setTitle(legalEntity.getTitle());
         legalEntity.setContact(Contact.builder().unp(12345).phone("9379992").build());
         legalEntityRepository.save(legalEntity);
 

@@ -28,6 +28,11 @@ public class LegalEntityServiceImpl implements LegalEntityService {
         return legalEntityRepository.findById(id).orElseThrow(() -> new NotFoundException());
     }
 
+    @Override
+    public LegalEntity save(LegalEntity legalEntity) {
+        return legalEntityRepository.save(legalEntity);
+    }
+
 
     @Transactional
     @Override
@@ -38,10 +43,5 @@ public class LegalEntityServiceImpl implements LegalEntityService {
         return legalEntityRepository.save(currentLegalEntity);
     }
 
-
-    @Override
-    public LegalEntity save(LegalEntity legalEntity) {
-        return legalEntityRepository.save(legalEntity);
-    }
 
 }

@@ -1,5 +1,6 @@
 package by.project.trucking_v2.controller;
 
+import by.project.trucking_v2.model.LegalEntity;
 import by.project.trucking_v2.model.User;
 import by.project.trucking_v2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,13 +43,10 @@ public class MainController {
     @PostMapping("/users/create")
     public String createUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            System.out.println("не норм");
             return "/user_create";
         } else {
             userService.save(user);
-            System.out.println("норм");
             return "/user_profile";
-//            return "redirect:/users/"+user.getId();
         }
     }
 

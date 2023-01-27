@@ -7,17 +7,17 @@
 </head>
 <body>
 
-<form th:action="@{/users/{id}(id=${user.getId()})}" th:object="${user}" th:method="post">
+<form th:action="@{/users/{id}(id=${user.getId()})}" th:method="post">
     <input type="hidden" name="_method" value="PUT" />
 
     <label for="email">Электронная почта</label>
-    <p><input id="login" type="text" th:field="*{login}" disabled/></p>
-    <p><input id="email" type="text" th:field="*{email}"/></p>
+    <p><input id="login" type="text" th:field="*{user.login}" disabled/></p>
+    <p><input id="email" type="text" th:field="*{user.email}"/></p>
+
+    <p><input id="title" type="text" th:field="*{user.legalEntity.title}"/></p>
 
 
-    <p>
-        <button type="submit">Сохранить</button>
-    </p>
+    <p><button type="submit">Сохранить</button></p>
 
 </form>
 
