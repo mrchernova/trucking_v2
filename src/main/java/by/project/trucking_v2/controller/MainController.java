@@ -1,5 +1,6 @@
 package by.project.trucking_v2.controller;
 
+import by.project.trucking_v2.exception.DatabaseException;
 import by.project.trucking_v2.model.LegalEntity;
 import by.project.trucking_v2.model.User;
 import by.project.trucking_v2.service.UserService;
@@ -41,7 +42,7 @@ public class MainController {
     }
 
     @PostMapping("/users/create")
-    public String createUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, LegalEntity legalEntity) {
+    public String createUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, LegalEntity legalEntity) throws DatabaseException {
         if (bindingResult.hasErrors()) {
             return "/user_create";
         } else {

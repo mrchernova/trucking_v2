@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
 
     //    @Transactional
     @Override
-    public User save(User user) {
+    public User save(User user){
         if (userRepository.findByLogin(user.getLogin()) == null) {
             log.info("Пользователь успешно сохранен");
             user.setStatus(Status.ACTIVE);
@@ -53,33 +53,31 @@ public class UserServiceImpl implements UserService {
             return userRepository.save(user);
         } else {
             log.warn("Пользователь НЕ сохранен. Логин '" + user.getLogin() + "' уже существует");
-            throw new DatabaseException();
-        }
-
-    }
-
-
-    @Transactional
-    @Override
-    public User update(Integer id, User user, LegalEntity legalEntity) {
-        User currentUser = userRepository.findById(id).orElseThrow(() -> new NotFoundException());
-
-        currentUser.setEmail(user.getEmail());
-        currentUser.setLegalEntity(legalEntity);
-
-        return userRepository.save(currentUser);
-    }
-
-    @Transactional
-    @Override
-    public void delete(Integer id) {
-        if (userRepository.existsById(id)) {
-            userRepository.deleteById(id);
-            log.info("Пользователь успешно удален");
-        } else {
-            log.warn("Пользователь НЕ удален. Пользователя с id=" + id + " не существует");
-            throw new EmptyResultException();
+            throw new DatabaseException(user.getLogin());
         }
     }
 
-}
+        @Transactional
+        @Override
+        public User update (Integer id, User user, LegalEntity legalEntity){
+            User currentUser = userRepository.findById(id).orElseThrow(() -> new NotFoundException());
+
+            currentUser.setEmail(user.getEmail());
+            currentUser.setLegalEntity(legalEntity);
+
+            return userRepository.save(currentUser);
+        }
+
+        @Transactional
+        @Override
+        public void delete (Integer id){
+            if (userRepository.existsById(id)) {
+                userRepository.deleteById(id);
+                log.info("Пользователь успешно удален");
+            } else {
+                log.warn("Пользователь НЕ удален. Пользователя с id=" + id + " не существует");
+                throw new EmptyResultException();
+            }
+        }
+
+    }

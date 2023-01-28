@@ -23,8 +23,8 @@
     <input id="password"
            th:field="*{password}"
            type="password"
-           pattern="(?=.*\d)(?=.*[a-zA-Z]).{4,20}"
-           title="Пароль должен содержать от 4 до 10 символов, в том числе цифры"
+           pattern="{4,20}"
+           title="Пароль должен содержать от 4 до 10 символов"
            required/>
     <label><input type="checkbox" class="password-checkbox"> Показать пароль</label>
 
