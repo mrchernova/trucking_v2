@@ -40,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors().disable()
                 .authorizeRequests()
                 .antMatchers("/", "/users/create").permitAll()
-                .antMatchers("/**").permitAll() // для теста.authenticated()
+                .antMatchers("/**").authenticated()
                 .and()
                 .headers().frameOptions().sameOrigin()
                 .and().formLogin()

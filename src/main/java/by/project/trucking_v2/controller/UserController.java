@@ -30,9 +30,8 @@ public class UserController {
         return  userService.save(user);
     }
 
-//    @PreAuthorize("hasAuthority('ADMINISTRATOR') or authentication.principal.login.equals(#user.login)")
+    @PreAuthorize("hasAuthority('ADMINISTRATOR') or authentication.principal.login.equals(#user.login)")
     @PutMapping("/{id}")
-//    public User updateUser(@PathVariable Integer id, @RequestBody User user) {
     public User updateUser(@PathVariable Integer id, User user, LegalEntity legalEntity) {
         return userService.update(id, user, legalEntity);
     }
