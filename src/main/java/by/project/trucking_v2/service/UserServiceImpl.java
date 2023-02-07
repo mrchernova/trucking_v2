@@ -27,8 +27,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private LegalEntityRepository legalEntityRepository;
+//    @Autowired
+//    private LegalEntityRepository legalEntityRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -53,17 +53,18 @@ public class UserServiceImpl implements UserService {
             return userRepository.save(user);
         } else {
             log.warn("Пользователь НЕ сохранен. Логин '" + user.getLogin() + "' уже существует");
-            throw new DatabaseException(user.getLogin());
+            throw new DatabaseException("Пользователь НЕ сохранен. Логин '" + user.getLogin() + "' уже существует");
         }
     }
 
         @Transactional
         @Override
-        public User update (Integer id, User user, LegalEntity legalEntity){
+        public User update (Integer id, User user){
             User currentUser = userRepository.findById(id).orElseThrow(() -> new NotFoundException());
 
             currentUser.setEmail(user.getEmail());
-            currentUser.setLegalEntity(legalEntity);
+            currentUser.setLegalEntity(user.getLegalEntity());
+//            currentUser.setLegalEntity(legalEntity);
 
             return userRepository.save(currentUser);
         }

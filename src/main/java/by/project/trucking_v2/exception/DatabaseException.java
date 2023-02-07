@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(code = HttpStatus.CONFLICT)
 public class DatabaseException extends RuntimeException{
-    public DatabaseException(String login) {
-        super("Пользователь [" + login + "] уже существует");
+    public DatabaseException(String message) {
+        super(message);
     }
 
 }

@@ -14,11 +14,13 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
-@PreAuthorize("hasAuthority('ADMINISTRATOR')")
+
+    @PreAuthorize("hasAuthority('ADMINISTRATOR')")
     @GetMapping
     public List<User> getUsers() {
         return userService.getAllUsers();
     }
+
     @PreAuthorize("hasAuthority('ADMINISTRATOR') or authentication.principal.id.equals(#id)")
     @GetMapping("/{id}")
     public User getUserById(@PathVariable Integer id) {
@@ -27,13 +29,13 @@ public class UserController {
 
     @PostMapping
     public User create(User user) {
-        return  userService.save(user);
+        return userService.save(user);
     }
 
     @PreAuthorize("hasAuthority('ADMINISTRATOR') or authentication.principal.login.equals(#user.login)")
     @PutMapping("/{id}")
-    public User updateUser(@PathVariable Integer id, User user, LegalEntity legalEntity) {
-        return userService.update(id, user, legalEntity);
+    public User updateUser(@PathVariable Integer id, User user/*, LegalEntity legalEntity*/) {
+        return userService.update(id, user/*, legalEntity*/);
     }
 
     @PreAuthorize("hasRole('ADMINISTRATOR') or authentication.principal.id.equals(#id)")

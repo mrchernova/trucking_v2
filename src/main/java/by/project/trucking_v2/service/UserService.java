@@ -11,8 +11,8 @@ public interface UserService {
     List<User> getAllUsers();
     User findById(Integer id);
 
-    User save(User user) throws DatabaseException;
-    User update(Integer id, User user, LegalEntity legalEntity);
+    User save(User user);
+    User update(Integer id, User user);
     void delete(Integer id);
 
 }
