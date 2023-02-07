@@ -64,7 +64,6 @@ public class UserServiceImpl implements UserService {
 
             currentUser.setEmail(user.getEmail());
             currentUser.setLegalEntity(user.getLegalEntity());
-//            currentUser.setLegalEntity(legalEntity);
 
             return userRepository.save(currentUser);
         }
