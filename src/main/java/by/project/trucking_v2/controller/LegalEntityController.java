@@ -23,6 +23,7 @@ public class LegalEntityController {
         return legalEntityService.findById(id);
     }
 
+
     @PutMapping("/{id}")
     public LegalEntity update(@PathVariable Integer id, @RequestBody LegalEntity legalEntity) {
         return legalEntityService.update(id, legalEntity);

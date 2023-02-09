@@ -11,5 +11,6 @@ public interface LegalEntityService {
     LegalEntity findById(Integer id);
 
     LegalEntity update(Integer id, LegalEntity legalEntity);
+    LegalEntity save(LegalEntity legalEntity);
 
 }

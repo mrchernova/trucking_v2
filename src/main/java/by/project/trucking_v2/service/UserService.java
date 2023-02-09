@@ -1,5 +1,7 @@
 package by.project.trucking_v2.service;
 
+import by.project.trucking_v2.exception.DatabaseException;
+import by.project.trucking_v2.model.LegalEntity;
 import by.project.trucking_v2.model.User;
 
 import java.util.List;

@@ -24,7 +24,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-    /** отвечает за аутентификацию */
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(customUserDetailsService);
@@ -32,14 +31,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
-    /** метод отвечает за авторизацию */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()     //POSTMAN
+                .csrf().disable()
                 .cors().disable()
                 .authorizeRequests()
                 .antMatchers("/", "/users/create").permitAll()
+                .antMatchers( HttpMethod.PUT,"/users/**").permitAll()
                 .antMatchers("/**").authenticated()
                 .and()
                 .headers().frameOptions().sameOrigin()
