@@ -1,8 +1,6 @@
 package by.project.trucking_v2.controller;
 
-import by.project.trucking_v2.model.LegalEntity;
 import by.project.trucking_v2.model.User;
-import by.project.trucking_v2.service.CustomUserDetailsService;
 import by.project.trucking_v2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;

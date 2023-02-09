@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()     //POSTMAN
+                .csrf().disable()
                 .cors().disable()
                 .authorizeRequests()
                 .antMatchers("/", "/users/create").permitAll()

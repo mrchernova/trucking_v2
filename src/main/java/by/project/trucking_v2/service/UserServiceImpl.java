@@ -3,16 +3,12 @@ package by.project.trucking_v2.service;
 import by.project.trucking_v2.exception.DatabaseException;
 import by.project.trucking_v2.exception.EmptyResultException;
 import by.project.trucking_v2.exception.NotFoundException;
-import by.project.trucking_v2.model.Contact;
-import by.project.trucking_v2.model.LegalEntity;
 import by.project.trucking_v2.model.Status;
 import by.project.trucking_v2.model.User;
-import by.project.trucking_v2.repository.LegalEntityRepository;
 import by.project.trucking_v2.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -27,8 +23,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-//    @Autowired
-//    private LegalEntityRepository legalEntityRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -43,7 +37,6 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-    //    @Transactional
     @Override
     public User save(User user){
         if (userRepository.findByLogin(user.getLogin()) == null) {
