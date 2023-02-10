@@ -13,6 +13,7 @@
     <span th:if="${login == 'anonymousUser'}"><a href="/users/create">Регистрация</a></span>
     <a th:href="'/username'"><span th:if="${login != 'anonymousUser'}" th:text='${login}'> </span></a>
     <span th:if="${login != 'anonymousUser'}"><a href="/logout">Выйти</a></span>
+    <span th:if="${role == 1}"><a href="/addorder">Добавить заказ</a> </span>
 
 </div>
 

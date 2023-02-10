@@ -1,11 +1,14 @@
 package by.project.trucking_v2.controller;
 
+import by.project.trucking_v2.exception.NotFoundException;
 import by.project.trucking_v2.model.LegalEntity;
 import by.project.trucking_v2.model.User;
+import by.project.trucking_v2.security.MyCustomUserDetails;
 import by.project.trucking_v2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,10 +23,12 @@ public class MainController {
     UserService userService;
 
 
+
     @GetMapping(path = "/")
     public String index(Model model) {
         String login = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("login", login);
+
         return "index";
     }
 
